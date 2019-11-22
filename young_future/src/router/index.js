@@ -8,50 +8,58 @@ import AddNewspaper from '@/manage/newspaper/add'
 import ManageNewspaper from '@/manage/newspaper/manage'
 import AddPassage from '@/manage/passage/add'
 import ManagePassage from '@/manage/passage/manage'
+import Manage from '@/manage'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      path: '/manager',
+      name: 'Manage',
+      component: Manage,
+      children: [
+        {
+          path: 'user/add',
+          name: 'AddUser',
+          component: AddUser
+        },
+        {
+          path:'user/manager',
+          name: 'ManageUser',
+          component: ManageUser
+        },
+        {
+          path: 'newspaper/add',
+          name: 'AddNewspaper',
+          component: AddNewspaper
+        },
+        {
+          path:'newspaper/manager',
+          name: 'ManageNewspaper',
+          component: ManageNewspaper
+        },
+        {
+          path: 'passage/add',
+          name: 'AddPassage',
+          component: AddPassage
+        },
+        {
+          path:'passage/manager',
+          name: 'ManagePassage',
+          component: ManagePassage
+        },
+      ]
+    },
+    {
       path: '/',
-      name: 'AddUser',
-      component: AddUser
+      name: 'home',
+      redirect:"/manager"
     },
     {
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/manager/user/add',
-      name: 'AddUser',
-      component: AddUser
-    },
-    {
-      path:'/manager/user/manager',
-      name: 'ManageUser',
-      component: ManageUser
-    },
-    {
-      path: '/manager/newspaper/add',
-      name: 'AddNewspaper',
-      component: AddNewspaper
-    },
-    {
-      path:'/manager/newspaper/manager',
-      name: 'ManageNewspaper',
-      component: ManageNewspaper
-    },
-    {
-      path: '/manager/passage/add',
-      name: 'AddPassage',
-      component: AddPassage
-    },
-    {
-      path:'/manager/passage/manager',
-      name: 'ManagePassage',
-      component: ManagePassage
     },
   ]
 })

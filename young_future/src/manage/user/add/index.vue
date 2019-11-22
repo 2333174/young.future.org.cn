@@ -1,6 +1,5 @@
 <template>
 <!-- 这里写登录页面html,按规定格式写好注释 -->
-
 </template>
 
 <script>
