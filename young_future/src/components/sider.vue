@@ -16,7 +16,7 @@
                 <span>用户管理</span>
                 </template>
                 <el-menu-item index="/manager/user/add">添加用户</el-menu-item>
-                <el-menu-item index="/manager/user/manager">添加用户</el-menu-item>
+                <el-menu-item index="/manager/user/manager">管理用户</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
                 <template slot="title">

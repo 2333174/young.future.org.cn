@@ -10,7 +10,16 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api':{        //如果遇到/api则拦截地址跳转
+        target:'http://localhost:80',     //将/api 替换成设置的跨域转换地址（需要访问后台地址）
+        changeOrigin:true,
+        pathRewrite:{
+          '^/api':''
+        }
+      }
+
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST

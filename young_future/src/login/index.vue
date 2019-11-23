@@ -68,7 +68,7 @@ export default {
             elem.append($ripple);
         },
         jumpTO(){
-            this.$router.push("/manage");
+            this.$router.push("/manager");
         },
         submit(event){
             if (this.animating) return;
@@ -89,7 +89,7 @@ export default {
            setTimeout(()=> {
                 this.jumpTO();
             }, 1000);
-            this.$axios.post("",params).then(
+            this.$axios.post("/api/up/",params).then(
                 res=>{
                     console.log(res.data);
                     if (res.data.message=="success"){
@@ -138,7 +138,7 @@ input, button {
 .cont {
   position: relative;
   height: 100%;
-  background-image: url("/static/img/loginBg.jpg");
+  background-image: url("/static/img/bg.png");
   background-size: cover;
   overflow: auto;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
