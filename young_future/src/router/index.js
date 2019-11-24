@@ -17,36 +17,57 @@ export default new Router({
     {
       path: '/manager',
       name: 'Manage',
+      meta:{
+        requireAuth:true,
+      },
       component: Manage,
       children: [
         {
           path: 'user/add',
           name: 'AddUser',
+           meta:{
+        requireAuth:true,
+      },
           component: AddUser
         },
         {
           path:'user/manager',
           name: 'ManageUser',
+           meta:{
+        requireAuth:true,
+      },
           component: ManageUser
         },
         {
           path: 'newspaper/add',
           name: 'AddNewspaper',
+           meta:{
+        requireAuth:true,
+      },
           component: AddNewspaper
         },
         {
           path:'newspaper/manager',
           name: 'ManageNewspaper',
+           meta:{
+        requireAuth:true,
+      },
           component: ManageNewspaper
         },
         {
           path: 'passage/add',
           name: 'AddPassage',
+           meta:{
+        requireAuth:true,
+      },
           component: AddPassage
         },
         {
           path:'passage/manager',
           name: 'ManagePassage',
+           meta:{
+        requireAuth:true,
+      },
           component: ManagePassage
         },
       ]

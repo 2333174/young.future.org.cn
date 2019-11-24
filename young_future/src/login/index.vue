@@ -137,7 +137,7 @@ input, button {
 .cont {
   position: relative;
   height: 100%;
-  background-image: url("/static/img/42.jpg");
+  background-image: url("/static/img/1.gif");
   background-size: cover;
   overflow: auto;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;

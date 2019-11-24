@@ -1,6 +1,11 @@
 import Vue from "vue"
 import Vuex from "vuex"
 
+/*
+ *@Author:蔡旭
+ *@Time:2019-11-24
+ *@description:全局变量
+*/
 Vue.use(Vuex);
 const store= new Vuex.Store({
     state:{
