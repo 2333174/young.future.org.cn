@@ -6,10 +6,12 @@ import router from './router'
 import ElementUI from 'element-ui'
 import axios from 'axios'
 import store from './vuex'
+import cookies from 'vue-cookies';
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 Vue.prototype.$axios=axios
+Vue.prototype.$cookies=cookies
 
 /* eslint-disable no-new */
 new Vue({

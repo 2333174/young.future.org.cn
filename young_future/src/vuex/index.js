@@ -5,7 +5,9 @@ Vue.use(Vuex);
 const store= new Vuex.Store({
     state:{
         userName:"青年传媒集团",
-        column:"用户管理"
+        column:"用户管理",
+        pageTitle:"珞青报管理",
+        newspaper_active:0,
     },
     mutations:{
         //修改state的操作放在这里，这里不允许异步

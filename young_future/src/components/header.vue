@@ -1,19 +1,19 @@
 <template>
   <div class="header">
         <div class="logo-info">
-            <img src="@/assets/logo.png" alt="">
+            <img src="@/assets/logo_blue.jpg" alt="">
             <div class="title">珞青网后台管理</div>
         </div>
         <div class="right">
           <div class="user-img">
               <img src="@/assets/qingchuan.png" alt="">
-              <el-dropdown>
+              <el-dropdown @command="handleCommand">
               <p style="cursor: pointer;color: #409EFF;">
                 {{this.$store.state.userName}}
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </p>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>注销</el-dropdown-item>
+                <el-dropdown-item command="loginOut">注销</el-dropdown-item>
               </el-dropdown-menu>
               </el-dropdown>
           </div>
@@ -23,7 +23,17 @@
 
 <script>
 export default {
-
+  methods: {
+    handleCommand(command) 
+    {
+      console.log(command);
+      if (command=="loginOut"){
+        console.log("1");
+        this.$cookies.remove('token');
+        this.$router.push("/login");
+      }
+    }
+  },
 }
 </script>
 

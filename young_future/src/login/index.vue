@@ -77,28 +77,27 @@ export default {
             var that = event.currentTarget;
             this.ripple($(that), event);
             $(that).addClass("processing");
-            let params={
-                username:this.loginForm.username,
-                password:this.loginForm.password    
-            }
+            var params = new URLSearchParams();
+            params.append('username', this.loginForm.username);
+            params.append('password', this.loginForm.password);
+
             /* 
             *@Author:Caixu
             *@Time:
             *@Description:请求php,依照json数据，如果成功，那么跳转到manage页面，如果失败，则提示
             */
-           setTimeout(()=> {
-                this.jumpTO();
-            }, 1000);
-            this.$axios.post("/api/up/",params).then(
+            this.$axios.post("/api/php/login.php",params).then(
                 res=>{
                     console.log(res.data);
-                    if (res.data.message=="success"){
+                    if (res.data.Status=="Success"){
                         setTimeout(()=> {
                             this.jumpTO();
                         }, 1000);
+                        this.$cookies.set("token",res.data.Token);
                     }else{
                         this.loginForm.tips="用户名或密码错误";
-                        $(that).removeClass("processing")
+                        $(that).removeClass("processing");
+                        this.animating=false;
                     }
                 }
             );
@@ -138,7 +137,7 @@ input, button {
 .cont {
   position: relative;
   height: 100%;
-  background-image: url("/static/img/bg.png");
+  background-image: url("/static/img/42.jpg");
   background-size: cover;
   overflow: auto;
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
