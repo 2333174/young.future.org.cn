@@ -105,7 +105,7 @@ export default {
                         this.$cookies.set("token",res.data.Token);
                     }else{
                         this.loginForm.tips="用户名或密码错误";
-                        $(that).removeClass("processing");
+                        $("#login_submit").removeClass("processing");
                         this.animating=false;
                     }
                 }
