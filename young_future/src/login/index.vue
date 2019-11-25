@@ -21,10 +21,10 @@
           <svg class="login__icon pass svg-icon" viewBox="0 0 20 20">
             <path d="M0,20 20,20 20,8 0,8z M10,13 10,16z M4,8 a6,8 0 0,1 12,0" />
           </svg>
-          <input type="password" class="login__input pass" placeholder="密码" v-model="loginForm.password"/>
+          <input type="password" id="login_password" class="login__input pass" placeholder="密码" v-model="loginForm.password"/>
         </div>
         <div><p class="tips">{{loginForm.tips}}</p></div>
-        <button type="button" class="login__submit" @click="submit($event)">登   录</button>
+        <button type="button" id="login_submit" class="login__submit" @click="submit()" >登   录</button>
       </form>
     </div>
   </div>
@@ -48,6 +48,15 @@ export default {
     },
     mounted(){
         document.title="登录";
+        $("#login_password").bind("keydown",function(e){
+　　    // 兼容火狐和IE和Chrome
+　　    var theEvent = e || window.event;
+　　    var code = theEvent.keyCode || theEvent.which || theEvent.charCode;
+　　    if (code == 13) {
+　　      //回车执行查询
+　　      $("#login_submit").click();
+　　    }
+});
     },
     //用axios请求数据
     methods: {
@@ -57,26 +66,26 @@ export default {
          *@Time:2019.11.22
          *@Description:登录界面按钮效果
         */
-        ripple(elem, e) {
-            $(".ripple").remove();
-            var elTop = elem.offset().top,
-                elLeft = elem.offset().left,
-                x = e.pageX - elLeft,
-                y = e.pageY - elTop;
-            var $ripple = $("<div class='ripple'></div>");
-            $ripple.css({top: y, left: x});
-            elem.append($ripple);
-        },
+        // ripple(elem, e) {
+        //     $(".ripple").remove();
+        //     var elTop = elem.offset().top,
+        //         elLeft = elem.offset().left,
+        //         x = e.pageX - elLeft,
+        //         y = e.pageY - elTop;
+        //     var $ripple = $("<div class='ripple'></div>");
+        //     $ripple.css({top: y, left: x});
+        //     elem.append($ripple);
+        // },
         jumpTO(){
             this.$router.push("/manager");
         },
-        submit(event){
+        submit(){
             if (this.animating) return;
             this.animating = true;
             //适配Edge和Chrome以及火狐
-            var that = event.currentTarget;
-            this.ripple($(that), event);
-            $(that).addClass("processing");
+            //var that = event.currentTarget;
+            // this.ripple($(that), event);
+            $("#login_submit").addClass("processing");
             var params = new URLSearchParams();
             params.append('username', this.loginForm.username);
             params.append('password', this.loginForm.password);
