@@ -27,24 +27,16 @@ export default {
 .content{
   display: flex;
   width: 100%;
+  height: 100%;
   top: 64px;
-  bottom: 0;
   position: absolute;
 }
 .content #sider{
   width: 205px;
+  bottom: 0;
 }
 #main{
   flex-grow: 1;
+  overflow: auto
 }
-/* .el-container {
-  height: 100%;
-  width:100%;
-}
-.el-aside {
-  width: auto;
-  position: absolute;
-  top:0;
-  bottom: 0;
-} */
 </style>
