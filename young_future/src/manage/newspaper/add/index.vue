@@ -29,7 +29,7 @@
       <el-input v-model="newsForm.name" placeholder="请输入标题"></el-input>
     </el-form-item>
     <el-form-item label="版面数量" prop="coverNum">
-      <el-input v-model="newsForm.coverNum" oninput="value=value.replace(/[^\d.]/g,'')" placeholder="请输入版面数量" @change="initCover"></el-input>
+      <el-input v-model="newsForm.coverNum" oninput="value=value.replace(/[^\d.]/g,'')" placeholder="请输入版面数量"></el-input>
     </el-form-item>
     <el-form-item label="上传封面" prop="coverList">
       <el-upload
@@ -110,7 +110,7 @@
   </el-table>
   <div v-if="this.$store.state.newspaper_active==1" style="margin:20px auto 5px">
     <el-button type="primary" @click="before('newsForm')">上一步</el-button>
-    <el-button @click="submit('newsForm')" type="success">提交</el-button>
+    <el-button @click="submit('newsForm')" type="success" :disabled="cantSubmit">提交</el-button>
   </div>
   </el-card>
 </div>
@@ -130,6 +130,7 @@ export default {
         isPreview:false,
         isHidden1:false,
         isHidden2:false,
+        cantSubmit:false,
         newsForm: {
           name: '',
           coverNum: '',
@@ -155,9 +156,13 @@ export default {
       }
   },
   //用axios请求数据
+  mounted() {
+    this.$store.state.pageTitle="添加珞青报"
+  },
   methods: {
       //下一步
       next(formName){
+        if (this.initCover()===false) return
         this.$refs[formName].validate((valid) => {
           if (valid) {
             if (this.$store.state.newspaper_active++ > 1){
@@ -171,16 +176,6 @@ export default {
       //上一步
       before(formName){
         this.$store.state.newspaper_active--;
-        // if (this.newsForm.coverList.length>0){
-        //   document.getElementsByClassName('el-upload')[0].style.display="none"
-        // }else{
-        //   document.getElementsByClassName('el-upload')[0].style.display="inline-block"
-        // }
-        // if (this.newsForm.newsFileList.length>0){
-        //   document.getElementsByClassName('el-upload')[1].style.display="none"
-        // }else{
-        //   document.getElementsByClassName('el-upload')[1].style.display="inline-block"
-        // }
       },
       /*
         -初始化版面
@@ -189,7 +184,7 @@ export default {
       initCover(){
         if (this.newsForm.coverNum>30){
           this.$message.error("版面数过多");
-          return
+          return false
         }
         this.newsForm.coverData=[];
         for (var i=0;i<this.newsForm.coverNum;i++){
@@ -198,6 +193,7 @@ export default {
             cover:[]
           })
         }
+        return true
       },
       /*
         -选择版面图片
@@ -233,11 +229,47 @@ export default {
       clearPicture(index){
         this.newsForm.coverData[index].cover=[]
       },
+       /*
+       -提交表单
+      */
+      submit(formName){
+        let formData= new FormData();
+        //封面base信息
+        let cover=this.newsForm.coverList[0].raw
+        //保存pdf信息
+        let pdfFile=this.newsForm.newsFileList[0].raw
+        let reader = new FileReader()
+        for (var i in this.newsForm.coverData){
+          if (this.newsForm.coverData[i].cover.length<1){
+            this.$message.error("请添加完版面图片后再上传")
+            return
+          }
+          formData.append("cover"+i,this.newsForm.coverData[i].cover[0].raw)
+        }
+        formData.append('title', this.newsForm.name);         //标题
+        formData.append('uploadPerson',this.$store.state.userName)//发布者
+        formData.append('coverNum', this.newsForm.coverNum);  //版面数
+        formData.append('cover', cover);                      //封面
+        formData.append('pdfFile', pdfFile);                  //报刊原件
+        this.$axios.post("/api/php/uploadNewsPaper.php",formData,{headers:{'Content-Type': 'multipart/form-data'}}).then(
+                res=>{
+                    console.log(res.data);
+                    if (res.data.status=="success"){
+                        this.$message.success("上传成功")
+                        this.cantSubmit=true
+                        setTimeout(()=> {
+                            this.$router.push("/manager/newspaper/manager")
+                        }, 1000);
+                    }else{
+                        this.$message.error(res.data.message)
+                    }
+                }
+            );
+      },
       handleCoverRemove(file,fileList){
         this.newsForm.coverList=fileList
         console.log(this.newsForm.coverList);
         this.isHidden1=false
-        //document.getElementsByClassName('el-upload')[0].style.display="inline-block"
       },
       checkCoverNum(file, fileList){
         const isJPG = ((file.raw.type === 'image/jpeg') || (file.raw.type === 'image/png') || (file.raw.type === 'image/jpeg'));
@@ -256,14 +288,12 @@ export default {
         
         if (fileList.length>=1){
           this.isHidden1=true
-          //document.getElementsByClassName('el-upload')[0].style.display="none"
         }
       },
       handleNewsRemove(file,fileList){
         this.newsForm.newsFileList=fileList
         console.log(this.newsForm.coverList);
         this.isHidden2=false
-        //document.getElementsByClassName('el-upload')[1].style.display="inline-block"
       },
       checkFileNum(file, fileList){
         console.log(file.raw.type)
@@ -279,7 +309,6 @@ export default {
         
         if (fileList.length>=1){
           this.isHidden2=true;
-          // document.getElementsByClassName('el-upload')[1].style.display="none"
         }
       }
   },

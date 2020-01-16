@@ -66,25 +66,12 @@ export default {
          *@Time:2019.11.22
          *@Description:登录界面按钮效果
         */
-        // ripple(elem, e) {
-        //     $(".ripple").remove();
-        //     var elTop = elem.offset().top,
-        //         elLeft = elem.offset().left,
-        //         x = e.pageX - elLeft,
-        //         y = e.pageY - elTop;
-        //     var $ripple = $("<div class='ripple'></div>");
-        //     $ripple.css({top: y, left: x});
-        //     elem.append($ripple);
-        // },
         jumpTO(){
             this.$router.push("/manager");
         },
         submit(){
             if (this.animating) return;
             this.animating = true;
-            //适配Edge和Chrome以及火狐
-            //var that = event.currentTarget;
-            // this.ripple($(that), event);
             $("#login_submit").addClass("processing");
             var params = new URLSearchParams();
             params.append('username', this.loginForm.username);
@@ -98,11 +85,11 @@ export default {
             this.$axios.post("/api/php/login.php",params).then(
                 res=>{
                     console.log(res.data);
-                    if (res.data.Status=="Success"){
+                    if (res.data.status=="success"){
                         setTimeout(()=> {
                             this.jumpTO();
                         }, 1000);
-                        this.$cookies.set("token",res.data.Token);
+                        this.$cookies.set("token",res.data.token);
                     }else{
                         this.loginForm.tips="用户名或密码错误";
                         $("#login_submit").removeClass("processing");
