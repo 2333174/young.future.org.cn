@@ -9,6 +9,7 @@ import ManageNewspaper from '@/manage/newspaper/manage'
 import AddPassage from '@/manage/passage/add'
 import ManagePassage from '@/manage/passage/manage'
 import Manage from '@/manage'
+import HomePage from '@/homePage'
 
 Vue.use(Router)
 
@@ -75,7 +76,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      redirect:"/manager"
+      component:HomePage
     },
     {
       path: '/login',
