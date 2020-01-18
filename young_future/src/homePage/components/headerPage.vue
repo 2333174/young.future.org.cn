@@ -2,18 +2,24 @@
 <nav class="full_page" id="nav" >
    <div class="header">
      <div class="header_center">
-       <img src="@/assets/logo.png" alt="">
-        <!-- <div class="logo-info">
-            
-        </div> -->
-        <a class="site-page" href="/">
+        <div class="logo-info">
+            <img src="@/assets/logo_black.png" alt="">
+        </div>
+        <div class="center">
+            <a class="site-page" href="/">
               <span> 首页</span>
-            </a>
-            <a class="site-page" href="/archives/">
-              <span> 文韵</span>
             </a>
             <a class="site-page" href="/categories/">
               <span> 新闻</span>
+            </a>
+            <a class="site-page" href="/categories/">
+              <span> 新闻速递</span>
+            </a>
+             <a class="site-page" href="/categories/">
+              <span> 往期精选</span>
+            </a>
+            <a class="site-page" href="/archives/">
+              <span> 文韵</span>
             </a>
             <a class="site-page" href="/tags/">
               <span> 珞青报</span>
@@ -24,15 +30,18 @@
             <a class="site-page" href="/about/">
               <span> 精选</span>
             </a>
+        </div>
+        <div class="right">
              <el-input placeholder="请输入文章标题" v-model="titleName" class="searchClass">
                <el-button slot="append" icon="el-icon-search"></el-button>
             </el-input>
+        </div>
       </div>
    </div>
-   <div class="abstract" style="top:262px;">
+   <!-- <div class="abstract" style="top:262px;">
      <h3>珞珈青年网</h3>
      <span>Welcome To Wuhan young.future.org.cn</span>
-   </div>
+   </div> -->
    <div class="scroll-down">
       <i class="el-icon-bottom scroll-down-effects"></i>
     </div>
@@ -53,95 +62,12 @@ export default {
 </script>
 
 <style lang="less">
-.header {
-  background-color: rgba(0, 0, 0, 0.3);
-  height: 64px;
-  width: 100%;
-  .header_center{ 
-    height: 100%;
-    img {
-        width: 130px;
-        margin-right: 20px;
-        vertical-align: middle;
-    }
-    a{
-          position: relative;
-          display: inline-block !important;
-          opacity: 1 !important;
-          -ms-filter: none !important;
-          filter: none !important;
-          text-decoration: none;
-          margin: 20px 20px auto;
-          color: #eeeeee;
-          text-shadow: none;
-          font-size: 16px;
-          z-index: 0;
-          font-family:   Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, PingFang SC, Hiragino Sans GB, "Microsoft YaHei", Helvetica Neue, Helvetica, Arial, sans-serif;
-          font-weight: bold;
-          -webkit-transition: all 0.2s;
-          -moz-transition: all 0.2s;
-          -o-transition: all 0.2s;
-          -ms-transition: all 0.2s;
-          transition: all 0.2s;
-        }
-        a:hover {
-          color: #ffffff;
-          text-decoration: none;
-        }
-        .search-input{
-          position: relative;
-          display: inline-block !important;
-          -ms-filter: none !important;
-          filter: none !important;
-          margin:0 20px;
-          width:30%
-        }
-        .searchClass{
-            border: 1px solid #c5c5c5;
-            border-radius: 20px;
-            background: #f4f4f4;
-            position: relative;
-            -ms-filter: none !important;
-            filter: none !important;
-            margin:0 20px;
-            width:20%
-        }
-        .searchClass .el-input-group__append {
-          border: none;
-          background-color: transparent;
-        }
-        .searchClass .el-input__inner {
-          height: 36px;
-          line-height: 36px;
-          border: none;
-          background-color: transparent;
-        }
-        .searchClass .el-icon-search{
-          font-size: 16px;
-        }
-        .searchClass:hover{
-          border: 1px solid #D5E3E8;
-          background: #fff;
-        }
-        .searchClass:hover .el-icon-search{
-          color: #409eff;
-          font-size: 16px;
-        }
-         
-        // .el-input{
-        //   border: 1px solid #c5c5c5;
-        //   position: relative;
-        //   display: inline-block !important;
-        //   -ms-filter: none !important;
-        //   filter: none !important;
-        //   margin:0 20px;
-        //   width: 10%;
-        // }
-    
-  }
+@font-face {
+	font-family:SJ;
+	src: url('/static/font/SJ.TTF');
 }
 #nav {
-    background-image: url("/static/img/cover1.jpg");
+    background-image: url("/static/img/cover_future.png");
     position: relative;
     margin-bottom: 20px;
     background-color: #49b1f5;
@@ -180,7 +106,7 @@ export default {
   z-index: -1;
   width: 0;
   height: 3px;
-  background-color: #ffffff;
+  background-color: #000000;
   //background-color: #80c8f8;
   content: "";
   -webkit-transition: all 0.3s ease-in-out;
@@ -208,6 +134,106 @@ export default {
     font-size: 14px;
     font-weight: bold;
     font-family: "Microsoft YaHei",Arial-normal,"open sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+}
+.header {
+  background-color: rgba(255, 255, 255, 1);
+  height: 64px;
+  width: 100%;
+  .header_center{ 
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    .logo-info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      color: #fff;
+      height: 100%;
+      img {
+          width: 130px;
+          margin-left: 20px;
+          margin-right: 20px;
+          vertical-align: middle;
+      }
+    }
+    .center {
+      display: flex;
+      justify-content: space-between;
+      a{
+        position: relative;
+        display: inline-block !important;
+        opacity: 1 !important;
+        -ms-filter: none !important;
+        filter: none !important;
+        text-decoration: none;
+        margin: 20px 20px auto;
+        color: #000000;
+        text-shadow: none;
+        font-size: 16px;
+        z-index: 0;
+        font-family:   SJ;
+        font-weight: bold;
+        -webkit-transition: all 0.2s;
+        -moz-transition: all 0.2s;
+        -o-transition: all 0.2s;
+        -ms-transition: all 0.2s;
+        transition: all 0.2s;
+      }
+      a:hover {
+        color: #000000;
+        text-decoration: none;
+      }
+    }
+    .right{
+      display: flex;
+      justify-content: space-between;
+      .searchClass{
+          border: 0.5px solid rgb(101,101,101);
+          border-radius: 20px;
+          background: rgb(250, 250, 250);
+          position: relative;
+          -ms-filter: none !important;
+          filter: none !important;
+          margin:auto 20px;
+          width:100%
+      }
+      .searchClass .el-input-group__append {
+        border: none;
+        background-color: transparent;
+      }
+      .searchClass .el-input__inner {
+        height: 36px;
+        line-height: 36px;
+        border: none;
+        background-color: transparent;
+      }
+      .searchClass .el-icon-search{
+        font-size: 16px;
+        color: #409eff;
+      }
+      .searchClass:hover{
+        border: 0.5px solid rgb(101,101,101);
+        background: #fff;
+      }
+      .searchClass:hover .el-icon-search{
+        color: #409eff;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+    
+         
+        // .el-input{
+        //   border: 1px solid #c5c5c5;
+        //   position: relative;
+        //   display: inline-block !important;
+        //   -ms-filter: none !important;
+        //   filter: none !important;
+        //   margin:0 20px;
+        //   width: 10%;
+        // }
+    
   }
 }
 
