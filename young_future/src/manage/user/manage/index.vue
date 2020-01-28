@@ -4,7 +4,7 @@
     <div class="page_header">
         <i class="el-icon-user"/>&nbsp;{{this.$store.state.pageTitle}}
     </div>
-    <el-card class="manageCard" shadow="hover">
+    <el-card shadow="hover">
         <el-table
             default-expand-all
             stripe
