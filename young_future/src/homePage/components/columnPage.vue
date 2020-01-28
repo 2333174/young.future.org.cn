@@ -203,6 +203,7 @@ export default {
     margin-top: 30px;
     justify-content: center;
     .art_block{
+      display: flex;
       width: 40%;
       margin-left:40px;
       img{
