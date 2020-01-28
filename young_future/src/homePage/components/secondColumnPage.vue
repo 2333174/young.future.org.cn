@@ -17,15 +17,15 @@ export default {
 <style>
 .column_second{
   background-attachment: local;
-  height: 140vh;
+  height: 150vh;
   background-color: white;
 }
 .muti_column{
   padding-top: 20px;
-  height: 50%; 
+  height: 70vh; 
 }
 .newspaper_column{
-  height: 50%;
+  height: 70vh;
   background-color: #e1e5e7;
   padding-top: 20px;
 }
