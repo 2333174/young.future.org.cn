@@ -2,19 +2,22 @@
   <div class="homePage">
     <headPage/>
     <columnPage/>
+    <secolPage/>
   </div>
 </template>
 
 <script>
 import headPage from '@/homePage/components/headerPage.vue'
 import columnPage from '@/homePage/components/columnPage.vue'
+import secolPage from '@/homePage/components/secondColumnPage.vue'
 export default {
   components:{
         headPage,
-        columnPage
+        columnPage,
+        secolPage,
   },
   mounted(){
-    document.title='珞珈青年网'
+    document.title='珞珈青年网' 
   }
 }
 </script>

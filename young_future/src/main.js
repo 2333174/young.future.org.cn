@@ -7,10 +7,13 @@ import ElementUI from 'element-ui'
 import axios from 'axios'
 import store from './vuex'
 import cookies from 'vue-cookies';
+import '../static/css/animate.css'
+import VueWayPoint from 'vue-waypoint'
 
 
 
 Vue.use(ElementUI)
+Vue.use(VueWayPoint)
 
 Vue.config.productionTip = false
 Vue.prototype.$axios=axios

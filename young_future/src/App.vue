@@ -1,16 +1,15 @@
 <template>
-  <div id="app">
+  <div id="app" class="wow">
       <router-view/>
   </div>
 </template>
 
 <script>
-import sider from '@/components/sider.vue'
+import {WOW} from 'wowjs'
 export default {
   name: 'App',
-  components:{
-    sider,
-  }
+  mounted() {
+  },
 }
 </script>
 

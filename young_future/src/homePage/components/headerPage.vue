@@ -1,5 +1,5 @@
 <template>
-<nav class="full_page" id="nav" >
+<div class="full_page" id="nav" >
    <div class="header">
      <div class="header_center">
         <div class="logo-info">
@@ -12,21 +12,22 @@
             <a class="site-page" href="/categories/">
               <span> 新闻</span>
             </a>
-            <a class="site-page" href="/categories/">
-              <span> 新闻速递</span>
-            </a>
-             <a class="site-page" href="/categories/">
-              <span> 往期精选</span>
-            </a>
             <a class="site-page" href="/archives/">
               <span> 文韵</span>
             </a>
             <a class="site-page" href="/tags/">
               <span> 珞青报</span>
             </a>
+            <a class="site-page" href="/categories/">
+              <span> 新闻速递</span>
+            </a>
+             <a class="site-page" href="/categories/">
+              <span> 往期精选</span>
+            </a>
             <a class="site-page" href="/link/">
               <span>专题</span>
             </a>
+
         </div>
         <div class="right">
              <el-input placeholder="请输入文章标题" v-model="titleName" class="searchClass">
@@ -38,7 +39,7 @@
    <!-- <div class="scroll-down">
       <i class="el-icon-bottom scroll-down-effects"></i>
     </div> -->
-</nav>
+</div>
 </template>
 
 <script>
