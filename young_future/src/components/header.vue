@@ -13,6 +13,7 @@
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </p>
               <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item command="changePassword">修改密码</el-dropdown-item>
                 <el-dropdown-item command="loginOut">注销</el-dropdown-item>
               </el-dropdown-menu>
               </el-dropdown>
@@ -31,6 +32,9 @@ export default {
         console.log("1");
         this.$cookies.remove('token');
         this.$router.push("/login");
+      }
+      if (command=="changePassword"){
+        this.$store.state.passModal=true;
       }
     }
   },

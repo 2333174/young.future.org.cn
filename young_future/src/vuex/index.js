@@ -9,10 +9,12 @@ import Vuex from "vuex"
 Vue.use(Vuex);
 const store= new Vuex.Store({
     state:{
+        account:'',
         userName:"青年传媒集团",
         column:"用户管理",
         pageTitle:"珞青报管理",
         newspaper_active:0,
+        passModal:false,
     },
     mutations:{
         //修改state的操作放在这里，这里不允许异步
