@@ -3,7 +3,7 @@
     <div class="page_header">
         <i class="el-icon-notebook-2"/>&nbsp;{{this.$store.state.pageTitle}}
     </div>
-    <el-card shadow="hover">
+    <el-card class="manageCard" shadow="hover">
         <el-table
             default-expand-all
             stripe
@@ -105,8 +105,9 @@ export default {
 
 <style>
 /* 这里写css */
-.el-card{
-    margin-top: 20px 
+.manageCard{
+    margin: 20px 15px auto;
+
 }
 .page_header{
   display: flex;

@@ -92,7 +92,6 @@ export default {
       // going: in, out
       // direction: top, right, bottom, left      
       if (going === this.$waypointMap.GOING_IN) {
-        console.log('news waypoint going in!')
         $(el).addClass("animated slideInLeft")
       }
     },
@@ -100,7 +99,6 @@ export default {
       // going: in, out
       // direction: top, right, bottom, left
       if (going === this.$waypointMap.GOING_IN) {
-        console.log('art waypoint going in!')
         $(el).addClass("animated slideInLeft")
       }
     },

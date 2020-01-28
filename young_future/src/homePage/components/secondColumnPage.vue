@@ -1,20 +1,184 @@
 <template>
   <div class="column_second">
-    <div class="muti_column">
-
+    <div class="newspaper_column" v-waypoint="{ active: true, callback: onWaypoint_newspaper, options: intersectionOptions }">
     </div>
-    <div class="newspaper_column">
-
+    <div class="muti_column" v-waypoint="{ active: true, callback: onWaypoint_muti, options: intersectionOptions }">
+      <el-row class="el-row">
+        <el-col :span="8" align="center">
+          <el-card class="el-card1" shadow="hover">
+            <div slot="header">
+              <span>新闻速递</span>
+              <el-button class="buttonMore" type="text" onClick="window.open('http://www.baidu.com')">
+                更多
+              </el-button>
+            </div>
+          <div>
+              <ul style="list-style: none" v-for="item in newsqList">
+                <li >
+                  <a :href="item.link" target="_blank">
+                    <div class="listContain">
+                      {{item.title}}
+                    </div>
+                    <div class="listDate">
+                      {{item.date}}
+                    </div>
+                  </a>
+                </li>
+              </ul>
+          </div>
+          </el-card>
+        </el-col>
+          <el-col :span="8" align="center">
+            <el-card class="el-card2" shadow="hover">
+              <div slot="header" class="card-header" :header-row-style="{height:'100px'}">
+                <span>往期精彩</span>
+                <el-button class="buttonMore" type="text" onClick="window.open('http://www.baidu.com')">
+                  更多
+                </el-button>
+              </div>
+              <div>
+                <ul style="list-style: none" v-for="item in handPickedList">
+                  <li>
+                    <a :href="item.link" target="_blank">
+                      <div class="listContain">
+                        {{item.title}}
+                      </div>
+                      <div class="listDate">
+                        {{item.date}}
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </el-card>
+          </el-col>
+        <el-col :span="8" align="center">
+           <el-card class="el-card3" shadow="hover">
+          <div slot="header" class="card-header">
+            <span>专题</span>
+            <el-button class="buttonMore" type="text" onClick="window.open('http://www.baidu.com')">
+              更多
+            </el-button>
+          </div>
+             <div>
+               <ul style="list-style: none" v-for="item in topicList">
+                 <li>
+                   <a :href="item.link" target="_blank">
+                     <div class="listContain">
+                       {{item.title}}
+                     </div>
+                     <div class="listDate">
+                       {{item.date}}
+                     </div>
+                   </a>
+                 </li>
+               </ul>
+             </div>
+        </el-card>
+        </el-col>
+      </el-row>
     </div>
+
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      intersectionOptions: {
+        root: null,
+        rootMargin: '0px 0px 0px 0px',
+        threshold: 0.1 // [0.25, 0.75] if you want a 25% offset!
+      },
+      newsqList:[
+        {
+          link:'',
+          title:'【土建】观脱贫成效，奔全面小康',
+          date:'2020-01-19'
+        },
+        {
+          link:'',
+          title:'【法院】情系母校，缘梦武大——会同一中，我们回来啦',
+          date:'2020-01-18'
+        },
+        {
+          link:'',
+          title:'【水利】水利水电学院举办寒假实践培训活动',
+          date:'2020-01-18'
+        },
+        {
+          link:'',
+          title:'【土建】载阳承梦，莹莹予众',
+          date:'2020-01-18'
+        },
+      ],
+      handPickedList:[
+        {
+          link:'',
+          title:'【土建】观脱贫成效，奔全面小康',
+          date:'2020-01-19'
+        },
+        {
+          link:'',
+          title:'【法院】情系母校，缘梦武大——会同一中，我们回来啦',
+          date:'2020-01-18'
+        },
+        {
+          link:'',
+          title:'【水利】水利水电学院举办寒假实践培训活动',
+          date:'2020-01-18'
+        },
+        {
+          link:'',
+          title:'【土建】载阳承梦，莹莹予众',
+          date:'2020-01-18'
+        }
+      ],
+      topicList:[
+        {
+          link:'',
+          title:'【土建】观脱贫成效，奔全面小康',
+          date:'2020-01-19'
+        },
+        {
+          link:'',
+          title:'【法院】情系母校，缘梦武大——会同一中，我们回来啦',
+          date:'2020-01-18'
+        },
+        {
+          link:'',
+          title:'【水利】水利水电学院举办寒假实践培训活动',
+          date:'2020-01-18'
+        },
+        {
+          link:'',
+          title:'【土建】载阳承梦，莹莹予众',
+          date:'2020-01-18'
+        }
+      ],
+    }
+  },
+  methods: {
+    onWaypoint_muti ({ el, going, direction }) {
+      // going: in, out
+      // direction: top, right, bottom, left      
+      if (going === this.$waypointMap.GOING_IN) {
+        $(el).addClass("animated slideInLeft")
+      }
+    },
+    onWaypoint_newspaper ({ el, going, direction }) {
+      // going: in, out
+      // direction: top, right, bottom, left      
+      if (going === this.$waypointMap.GOING_IN) {
+        $(el).addClass("animated slideInLeft")
+      }
+    },
+  },
 }
 </script>
 
-<style>
+<style lang="less">
 .column_second{
   background-attachment: local;
   height: 140vh;
@@ -23,10 +187,68 @@ export default {
 .muti_column{
   padding-top: 20px;
   height: 50%; 
+  background-color: #e1e5e7;
+  padding-top: 50px;
+  padding-left: 125px;
+  padding-right: 125px;
+  .el-card1 {
+    background-image: url("/static/img/image/bac1.jpg");
+    width: 98%;
+    display: block;
+  }
+  .el-card2 {
+    background-image: url("/static/img/image/bac2.jpg");
+      width: 98%;
+      display: block;
+    }
+  .el-card3 {
+    background-image: url("/static/img/image/bac3.jpg");
+    width: 98%;
+    display: block;
+  }
+  .el-card__body {
+    padding-left: 0px;
+    padding-top: 30px;
+    padding-bottom: 200px;
+  }
+  .listContain{
+    width: 270px;
+    height: 30px;
+    text-align: left;
+    float: left;
+    padding-left: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    margin-left: 0px;
+  }
+  .listDate{
+    float: right;
+    height: 25px;
+  }
+  .el-card__header{
+    font-size: 25px;
+    font-weight: bold;
+    color:darkslategray;
+  }
+}
+.buttonMore{
+  float: right;
+  color: cadetblue;
+}
+a{
+  font-size: 17px;
+  color: black;
+}
+a:link{
+  text-decoration:none;
+}
+a:hover{
+  color:steelblue;
 }
 .newspaper_column{
   height: 50%;
-  background-color: #e1e5e7;
+  
   padding-top: 20px;
 }
 </style>
