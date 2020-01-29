@@ -1,6 +1,30 @@
 <template>
   <div class="column_second">
     <div class="newspaper_column" v-waypoint="{ active: true, callback: onWaypoint_newspaper, options: intersectionOptions }">
+     <el-container>
+        <el-header>
+          <div style="margin: 15px;">
+            <span class="news-header">珞&nbsp;&nbsp;青&nbsp;&nbsp;报</span>
+          </div>  
+        </el-header>
+        <el-row type="flex" class="row-bg" justify="center" :gutter="80" style="margin-top: 15px;">
+          <el-col :span="5" v-for="item in LQBList" :key="item.title" >
+            <div >
+              <el-card :body-style="{ padding: '0px' }">
+                <div >
+                  <img :src="item.imgUrl" style="width:100%" />
+                  <div style="padding-bottom: 10px;">
+                    <div class="bottom clearfix">
+                      <el-button type="text" class="button">{{item.title}}</el-button>
+                      <div>{{ item.date }} </div>
+                    </div>
+                  </div>
+                </div>
+              </el-card>
+            </div>
+          </el-col>
+        </el-row>
+     </el-container> 
     </div>
     <div class="muti_column" v-waypoint="{ active: true, callback: onWaypoint_muti, options: intersectionOptions }">
       <el-row class="el-row">
@@ -91,6 +115,12 @@ export default {
         rootMargin: '0px 0px 0px 0px',
         threshold: 0.1 // [0.25, 0.75] if you want a 25% offset!
       },
+      LQBList:[
+      {title:"珞青报标题一",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-02"},
+      {title:"珞青报标题二",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-03"},
+      {title:"珞青报标题三",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-04"},
+      {title:"珞青报标题四",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-05"},
+      ],
       newsqList:[
         {
           link:'',
@@ -251,4 +281,11 @@ a:hover{
   
   padding-top: 20px;
 }
+.news-header{
+  font-size: 20px;
+  font-weight: bold;
+  font-family: SJ;
+  padding: 0 10px;
+  border: 2px solid rgb(101,101,101);
+  }
 </style>
