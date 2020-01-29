@@ -15,6 +15,8 @@ const store= new Vuex.Store({
         pageTitle:"珞青报管理",
         newspaper_active:0,
         passModal:false,
+        listType: '',
+        listData:[]
     },
     mutations:{
         //修改state的操作放在这里，这里不允许异步

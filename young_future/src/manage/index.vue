@@ -28,7 +28,7 @@
 </template>
 <script>
 import sider from '@/components/sider.vue'
-import header1 from '@/components/header.vue'
+import header1 from '@/components/manageHeader.vue'
 export default {
     name: 'Manage',
     data() {

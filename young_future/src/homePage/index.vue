@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .homePage{
   height: 100vh;
   overflow:auto;

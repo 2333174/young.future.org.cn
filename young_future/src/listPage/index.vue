@@ -1,6 +1,11 @@
 <template>
-<div class="full_page" id="nav" >
+<div>
+  <div class="listpage">
    <homeheader/>
+  </div>
+  <!-- <homeheader/> -->
+  <!-- <router-view/> -->
+  <div>{{$store.state.listType}}</div>
 </div>
 </template>
 
@@ -8,26 +13,24 @@
 import homeheader from '@/components/header.vue'
 export default {
   components:{
-    homeheader
-  }
+      homeheader
+  },
+  watch: {
+    listType:''
+  },
 }
 </script>
 
-<style lang="less">
-
-#nav {
-    background-image: url("/static/img/cover_future.png");
+<style>
+.listpage {
+    background-image: url("/static/img/bg.png");
     position: relative;
     background-color: #49b1f5;
     background-position: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
-}
-#nav.full_page {
     background-attachment: local;
     height: 100vh;
 }
-
-
 </style>

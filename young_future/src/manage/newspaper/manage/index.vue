@@ -107,7 +107,6 @@ export default {
 /* 这里写css */
 .manageCard{
     margin: 20px 15px auto;
-
 }
 .page_header{
   display: flex;

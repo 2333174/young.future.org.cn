@@ -23,7 +23,7 @@
       <el-button type="primary" @click="isPreview = false">确 定</el-button>
     </span>
   </el-dialog>
-  <el-card shadow="hover">
+  <el-card class='addCard' shadow="hover">
   <el-form v-if="this.$store.state.newspaper_active==0" id="newspaper_form" label-position="left" label-width="110px" :model="newsForm" :rules="rules" ref="newsForm" class="demo-newsForm">
     <el-form-item label="标题" prop="name">
       <el-input v-model="newsForm.name" placeholder="请输入标题"></el-input>
@@ -320,7 +320,7 @@ export default {
 #newspaper_form{
   padding-top:1rem; 
 }
-.el-card{
+.addMain .addCard{
   width:90%;
   margin: 0 auto 80px;
 }
