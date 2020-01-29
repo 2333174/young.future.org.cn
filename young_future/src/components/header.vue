@@ -9,7 +9,7 @@
             <span class="site-page" @click="$router.push({path:'/listpage',query:{type:'news'}});$store.state.listType='新闻'"> 新闻</span>
             <span class="site-page" @click="$router.push({path:'/listpage',query:{type:'literature'}});$store.state.listType='文韵'"> 文韵</span>
             <span class="site-page" @click="$router.push({path:'/listpage',query:{type:'newspaper'}});$store.state.listType='珞青报'"> 珞青报</span>
-            <span class="site-page" @click="$router.push({path:'/listpage',query:{type:'courier'}});$store.state.listType='新闻速递'"> 新闻速递</span>
+            <span class="site-page" @click="$router.push({path:'/listpage',query:{type:'courier'}});$store.state.listType='最新速递'"> 最新速递</span>
             <span class="site-page" @click="$router.push({path:'/listpage',query:{type:'handpicked'}});$store.state.listType='往期精选'"> 往期精选</span>
             <span class="site-page" @click="$router.push({path:'/listpage',query:{type:'topic'}});$store.state.listType='专题'"> 专题</span>
         </div>
@@ -41,7 +41,7 @@ export default {
         this.$store.state.listType="珞青报"
         break;
       case "courier":
-        this.$store.state.listType="新闻速递"
+        this.$store.state.listType="最新速递"
         break;
       case "handpicked":
         this.$store.state.listType="往期精选"

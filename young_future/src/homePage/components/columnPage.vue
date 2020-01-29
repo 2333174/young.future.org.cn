@@ -16,7 +16,7 @@
         <el-card class="news-card" shadow="hover">
           <div slot="header" class="cardHeader">
             <span style="padding-left:5px;">新闻</span>
-            <el-button type="primary" style="float: right; padding: 3px 5px;margin-right:5px;">更多<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+            <el-button type="primary" style="float: right; padding: 3px 5px;margin-right:5px;"  @click="$router.push({path:'/listpage',query:{type:'news'}});$store.state.listType='新闻'">更多<i class="el-icon-arrow-right el-icon--right"></i></el-button>
             <!-- <el-button style="float: right; padding: 3px 5px" icon="el-icon-more" type="primary"></el-button> -->
           </div>
           <div v-for="newsItem in newsList" :key="newsItem.title" :class="{'item':true,'itemScroll':newsItem.isScroll}">
@@ -36,7 +36,7 @@
         <el-card class="art-card" shadow="hover">
           <div slot="header" class="cardHeader">
             <span style="padding-left:5px;">文韵</span>
-            <el-button type="primary" style="float: right; padding: 3px 5px;margin-right:5px;">更多<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+            <el-button type="primary" style="float: right; padding: 3px 5px;margin-right:5px;" @click="$router.push({path:'/listpage',query:{type:'literature'}});$store.state.listType='文韵'">更多<i class="el-icon-arrow-right el-icon--right"></i></el-button>
             <!-- <el-button style="float: right; padding: 3px 5px" icon="el-icon-more" type="primary"></el-button> -->
           </div>
           <div v-for="artItem in artList" :key="artItem.title" class="item">

@@ -7,7 +7,7 @@
             <span class="news-header">珞&nbsp;&nbsp;青&nbsp;&nbsp;报</span>
           </div>  
         </el-header>
-        <el-row type="flex" class="row-bg" justify="center" :gutter="80" style="margin-top: 15px;">
+        <el-row type="flex" class="row-bg" justify="center" :gutter="80" style="margin:15px 0px auto">
           <el-col :span="5" v-for="item in LQBList" :key="item.title" >
             <div >
               <el-card :body-style="{ padding: '0px' }">
@@ -31,8 +31,8 @@
         <el-col :span="8" align="center">
           <el-card class="el-card1" shadow="hover">
             <div slot="header">
-              <span>新闻速递</span>
-              <el-button class="buttonMore" type="text" onClick="window.open('http://www.baidu.com')">
+              <span>最新速递</span>
+              <el-button class="buttonMore" type="text" @click="$router.push({path:'/listpage',query:{type:'courier'}});$store.state.listType='最新速递'">
                 更多
               </el-button>
             </div>
@@ -56,7 +56,7 @@
             <el-card class="el-card2" shadow="hover">
               <div slot="header" class="card-header" :header-row-style="{height:'100px'}">
                 <span>往期精彩</span>
-                <el-button class="buttonMore" type="text" onClick="window.open('http://www.baidu.com')">
+                <el-button class="buttonMore" type="text" @click="$router.push({path:'/listpage',query:{type:'handpicked'}});$store.state.listType='往期精选'">
                   更多
                 </el-button>
               </div>
@@ -80,7 +80,7 @@
            <el-card class="el-card3" shadow="hover">
           <div slot="header" class="card-header">
             <span>专题</span>
-            <el-button class="buttonMore" type="text" onClick="window.open('http://www.baidu.com')">
+            <el-button class="buttonMore" type="text" @click="$router.push({path:'/listpage',query:{type:'topic'}});$store.state.listType='专题'">
               更多
             </el-button>
           </div>
@@ -215,7 +215,6 @@ export default {
   background-color: white;
 }
 .muti_column{
-  padding-top: 20px;
   height: 50%; 
   background-color: #e1e5e7;
   padding-top: 50px;
@@ -278,7 +277,6 @@ a:hover{
 }
 .newspaper_column{
   height: 50%;
-  
   padding-top: 20px;
 }
 .news-header{
