@@ -42,7 +42,7 @@ export default {
   object-fit: cover;
 }
 .listMain{
-  width:90%;
+  width:80%;
   margin: 40px auto 40px;
   .listCard{
     background-color: rgba(134, 150, 167, 0.6);
