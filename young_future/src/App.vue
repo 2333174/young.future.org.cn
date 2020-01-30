@@ -1,11 +1,10 @@
 <template>
-  <div id="app" class="wow">
+  <div id="app">
       <router-view/>
   </div>
 </template>
 
 <script>
-import {WOW} from 'wowjs'
 export default {
   name: 'App',
   mounted() {

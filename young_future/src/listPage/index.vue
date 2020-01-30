@@ -1,13 +1,13 @@
 <template>
-<div>
+<div style="height:100vh;overflow:auto;" >
   <div>
     <homeheader/>
-    <el-card class='listCard'>
-      <div>
-        <span class="listHeader">{{$store.state.listType}}</span>
-      </div>
-    </el-card>
+    <div class='listMain'>
+      <div class="listHeader">{{$store.state.listType}}</div>
+      <el-card class='listCard'></el-card>
+    </div>
   </div>
+  <footSection/>
   <img src="/static/img/bg.png" class="listBackground"/>
   <!-- <div class="listpage">
   </div> -->
@@ -19,9 +19,11 @@
 
 <script>
 import homeheader from '@/components/header.vue'
+import footSection from '@/components/footSection.vue'
 export default {
   components:{
-      homeheader
+      homeheader,
+      footSection
   },
   watch: {
     listType:''
@@ -30,20 +32,6 @@ export default {
 </script>
 
 <style lang='less'>
-.listpage {
-  background-image: url("/static/img/bg.png");
-  position: absolute;
-  top:0px;
-  left: 0;
-  background-color: #49b1f5;
-  background-position: center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  background-attachment: local;
-  height: 100vh;
-  z-index: -1;
-}
 .listBackground{
   position: absolute;
   top:0px;
@@ -53,17 +41,33 @@ export default {
   height: 100%;
   object-fit: cover;
 }
-.listCard{
-      background-color: rgba(134, 150, 167, 0.6);
-      width:90%;
-      margin: 40px auto auto;
-      border: none;
-      .listHeader{
-        font-size: 20px;
-        font-weight: bold;
-        font-family: SJ;
-        padding: 0 10px;
-        border: 2px solid rgb(101,101,101);
-      }
-    }
+.listMain{
+  width:90%;
+  margin: 40px auto 40px;
+  .listCard{
+    background-color: rgba(134, 150, 167, 0.6);
+    width:100%;
+    border: none;
+    min-height: 100vh;
+  }
+  .listHeader{
+    text-align: left;
+    font-size: 40px;
+    font-weight: bold;
+    color: black;
+    font-family: "华文行楷";
+    margin-left: 10px;
+    margin-bottom: 20px;
+  }
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #409eff;
+}
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
 </style>
