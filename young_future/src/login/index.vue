@@ -98,11 +98,11 @@ export default {
             this.$axios.post("/api/php/login.php",params).then(
                 res=>{
                     console.log(res.data);
-                    if (res.data.Status=="Success"){
+                    if (res.data.status=="Success"){
                         setTimeout(()=> {
                             this.jumpTO();
                         }, 1000);
-                        this.$cookies.set("token",res.data.Token);
+                        this.$cookies.set("token",res.data.token);
                     }else{
                         this.loginForm.tips="用户名或密码错误";
                         $("#login_submit").removeClass("processing");
