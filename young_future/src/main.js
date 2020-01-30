@@ -27,7 +27,7 @@ router.beforeEach((to,from,next)=>{
       params.append('token', cookies.get('token'));
       axios.post("/api/php/auth.php",params).then(res=>{
         console.log(res.data);
-        if (res.data.status=="success"){
+        if (res.data.Status=="Success"){
           cookies.set("token",res.data.token)
           next();
           store.state.userName=res.data.uname;
