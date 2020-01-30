@@ -53,7 +53,7 @@ router.beforeEach((to,from,next)=>{
     console.log(to.path);
     if (cookies.get("token")&&to.path=="/login"){
       next({
-        path:"/manager"
+        path:"/manager/user/add"
       })
     }else{
       next()

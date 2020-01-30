@@ -4,7 +4,7 @@
     <div class="page_header">
         <i class="el-icon-user"/>&nbsp;{{this.$store.state.pageTitle}}
     </div>
-    <el-card shadow="hover">
+    <el-card class='userCard' shadow="hover">
         <el-form 
           id="user_form" 
           label-position="left" 
@@ -81,7 +81,7 @@ export default {
                     { required:true,message:'',validator: validatePass,trigger:['blur','change'] }
                 ],
                 confirmPassword:[
-                    { required:true,message:'',validator: validatePass2,trigger:['blur','change'] }
+                    { required:true,message:'',validator: validatePass2,trigger:['blur'] }
                 ]
                 }
             
@@ -92,11 +92,6 @@ export default {
     },
     mounted(){
         this.$store.state.pageTitle="添加用户"
-        if (code == 13) {
-　　      //回车执行查询
-　　      $("#useradd_submit").click();
-　　    }
-
     },
     //用axios请求数据
     methods: {
@@ -151,9 +146,9 @@ export default {
 #user_form{
   padding-top:1rem; 
 }
-.el-card{
+.userCard{
   width:90%;
-  margin: 0 auto 80px;
+  margin: 20px auto 80px;
 }
 .el-form-item{
   width:90%;

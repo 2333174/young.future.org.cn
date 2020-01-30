@@ -86,14 +86,13 @@ $uGrade = $_POST['uGrade'];
     }
     $sqlStr = "INSERT INTO users (uID,uAccount,uPassword,uName,uGrade)
     VALUES ('$uID','$uAccount','$uPassword','$uName','$uGrade');";
-    file_put_contents('result.txt',$sqlStr);
     $result = mysqli_query($content, $sqlStr);
     mysqli_close($content);
     if($result){
         $arr = array('status'=>"success");
         exit(json_encode($arr));
     }else{
-        $arr = array('status'=>'fail','message'=>"未知错误");
+        $arr = array('status'=>'fail','message'=>"用户添加失败");
         exix(json_encode($arr));
     }
 

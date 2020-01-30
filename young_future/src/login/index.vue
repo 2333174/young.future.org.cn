@@ -67,7 +67,7 @@ export default {
          *@Description:登录界面按钮效果
         */
         jumpTO(){
-            this.$router.push("/manager");
+            this.$router.push("/manager/user/add");
         },
         submit(){
             if (this.animating) return;

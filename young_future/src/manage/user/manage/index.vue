@@ -105,4 +105,8 @@ export default {
   background-color: #fcfcfc;
   box-shadow: 1px 4px 6px #ccc;
 }
+.manageCard{
+    width:90%;
+    margin: 20px auto 80px;
+}
 </style>
