@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Login from '@/login'
 import AddUser from '@/manage/user/add'
 import ManageUser from '@/manage/user/manage'
@@ -18,6 +17,7 @@ Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/manager',

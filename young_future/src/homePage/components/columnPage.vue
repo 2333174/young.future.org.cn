@@ -7,7 +7,7 @@
     <div class="news-area">
       <div class="news_block">
         <el-carousel @change="newsChange">
-          <el-carousel-item v-for="item in newsList" :key="item.title">
+          <el-carousel-item v-for="item in newsList" :key="item.pID">
             <img :src="item.imgUrl" style="width:100%"/>
           </el-carousel-item>
         </el-carousel>
@@ -20,8 +20,8 @@
             <!-- <el-button style="float: right; padding: 3px 5px" icon="el-icon-more" type="primary"></el-button> -->
           </div>
           <div v-for="newsItem in newsList" :key="newsItem.title" :class="{'item':true,'itemScroll':newsItem.isScroll}">
-            <span style="font-weight:bold">{{newsItem.title}}</span>
-            <span style="float:right">{{newsItem.date}}</span>
+            <span style="font-weight:bold">{{newsItem.pTitle}}</span>
+            <span style="float:right">{{newsItem.pUpdateTime}}</span>
           </div>
         </el-card>
       </div>
@@ -39,9 +39,9 @@
             <el-button type="primary" style="float: right; padding: 3px 5px;margin-right:5px;" @click="$router.push({path:'/listpage',query:{type:'literature'}});$store.state.listType='文韵'">更多<i class="el-icon-arrow-right el-icon--right"></i></el-button>
             <!-- <el-button style="float: right; padding: 3px 5px" icon="el-icon-more" type="primary"></el-button> -->
           </div>
-          <div v-for="artItem in artList" :key="artItem.title" class="item">
-            <span style="font-weight:bold">{{artItem.title}}</span>
-            <span style="float:right">{{artItem.date}}</span>
+          <div v-for="artItem in artList" :key="artItem.pID" class="item" @click="$router.push('/artList/'+artItem.pID)">
+            <span style="font-weight:bold">{{artItem.pTitle}}</span>
+            <span style="float:right">{{artItem.pUpdateTime}}</span>
           </div>
         </el-card>
       </div>
@@ -67,23 +67,9 @@ export default {
         rootMargin: '0px 0px 0px 0px',
         threshold: 0.1 // [0.25, 0.75] if you want a 25% offset!
       },
-      carousel_list:["/static/img/cover.jpg","/static/img/cover_future.png"],
-      newsList:[
-        {title:"新闻一",imgUrl:"/static/img/cover.jpg",date:"2019-01-02",isScroll:true},
-        {title:"新闻二",imgUrl:"/static/img/cover_future.png",date:"2019-01-03",isScroll:false},
-        {title:"新闻三",imgUrl:"/static/img/bg.png",date:"2019-01-04",isScroll:false},
-        {title:"新闻四",imgUrl:"/static/img/42.jpg",date:"2019-01-05",isScroll:false},
-        {title:"新闻五",imgUrl:"/static/img/bg.png",date:"2019-01-01",isScroll:false},
-      ],
-      artList:[
-        {title:"文章标题一",date:"2019-01-02",isScroll:true},
-        {title:"文章标题二",date:"2019-01-03",isScroll:false},
-        {title:"文章标题三",date:"2019-01-04",isScroll:false},
-        {title:"文章标题四",date:"2019-01-05",isScroll:false},
-        {title:"文章标题五",date:"2019-01-01",isScroll:false},
-      ]
     }
   },
+  props:['newsList',"artList"],
   mounted() {
     
   },

@@ -15,8 +15,8 @@
                   <img :src="item.imgUrl" style="width:100%" />
                   <div style="padding-bottom: 10px;">
                     <div class="bottom clearfix">
-                      <el-button type="text" class="button">{{item.title}}</el-button>
-                      <div>{{ item.date }} </div>
+                      <el-button type="text" class="button" @click="$router.push('/LQBList/'+item.title)">{{item.title}}</el-button>
+                      <div>{{ item.updateTime }} </div>
                     </div>
                   </div>
                 </div>
@@ -39,12 +39,12 @@
           <div>
               <ul style="list-style: none" v-for="item in newsqList">
                 <li >
-                  <a :href="item.link" target="_blank">
+                  <a :href="'/newsqList/'+item.pID" target="_blank">
                     <div class="listContain">
-                      {{item.title}}
+                      {{item.pTitle}}
                     </div>
                     <div class="listDate">
-                      {{item.date}}
+                      {{item.pUpdateTime}}
                     </div>
                   </a>
                 </li>
@@ -63,12 +63,12 @@
               <div>
                 <ul style="list-style: none" v-for="item in handPickedList">
                   <li>
-                    <a :href="item.link" target="_blank">
+                    <a :href="'/handPickedList/'+item.pID" target="_blank">
                       <div class="listContain">
-                        {{item.title}}
+                        {{item.pTitle}}
                       </div>
                       <div class="listDate">
-                        {{item.date}}
+                        {{item.pUpdateTime}}
                       </div>
                     </a>
                   </li>
@@ -87,12 +87,12 @@
              <div>
                <ul style="list-style: none" v-for="item in topicList">
                  <li>
-                   <a :href="item.link" target="_blank">
+                   <a :href=" '/topicList/'+item.pID" target="_blank">
                      <div class="listContain">
-                       {{item.title}}
+                       {{item.pTitle}}
                      </div>
                      <div class="listDate">
-                       {{item.date}}
+                       {{item.pUpdateTime}}
                      </div>
                    </a>
                  </li>
@@ -115,80 +115,9 @@ export default {
         rootMargin: '0px 0px 0px 0px',
         threshold: 0.1 // [0.25, 0.75] if you want a 25% offset!
       },
-      LQBList:[
-      {title:"珞青报标题一",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-02"},
-      {title:"珞青报标题二",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-03"},
-      {title:"珞青报标题三",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-04"},
-      {title:"珞青报标题四",imgUrl:"/static/img/image/bac1.jpg",date:"2019-01-05"},
-      ],
-      newsqList:[
-        {
-          link:'',
-          title:'【土建】观脱贫成效，奔全面小康',
-          date:'2020-01-19'
-        },
-        {
-          link:'',
-          title:'【法院】情系母校，缘梦武大——会同一中，我们回来啦',
-          date:'2020-01-18'
-        },
-        {
-          link:'',
-          title:'【水利】水利水电学院举办寒假实践培训活动',
-          date:'2020-01-18'
-        },
-        {
-          link:'',
-          title:'【土建】载阳承梦，莹莹予众',
-          date:'2020-01-18'
-        },
-      ],
-      handPickedList:[
-        {
-          link:'',
-          title:'【土建】观脱贫成效，奔全面小康',
-          date:'2020-01-19'
-        },
-        {
-          link:'',
-          title:'【法院】情系母校，缘梦武大——会同一中，我们回来啦',
-          date:'2020-01-18'
-        },
-        {
-          link:'',
-          title:'【水利】水利水电学院举办寒假实践培训活动',
-          date:'2020-01-18'
-        },
-        {
-          link:'',
-          title:'【土建】载阳承梦，莹莹予众',
-          date:'2020-01-18'
-        }
-      ],
-      topicList:[
-        {
-          link:'',
-          title:'【土建】观脱贫成效，奔全面小康',
-          date:'2020-01-19'
-        },
-        {
-          link:'',
-          title:'【法院】情系母校，缘梦武大——会同一中，我们回来啦',
-          date:'2020-01-18'
-        },
-        {
-          link:'',
-          title:'【水利】水利水电学院举办寒假实践培训活动',
-          date:'2020-01-18'
-        },
-        {
-          link:'',
-          title:'【土建】载阳承梦，莹莹予众',
-          date:'2020-01-18'
-        }
-      ],
     }
   },
+  props:["LQBList","newsqList","handPickedList","topicList"],
   methods: {
     onWaypoint_muti ({ el, going, direction }) {
       // going: in, out
