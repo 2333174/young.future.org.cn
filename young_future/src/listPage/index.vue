@@ -4,11 +4,28 @@
     <homeheader/>
     <div class='listMain'>
       <div class="listHeader">{{$store.state.listType}}</div>
-      <el-card class='listCard'></el-card>
+      <el-card class='listCard'>
+        <div v-for="item in listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < this.total?currentPage * pageSize:this.total)"  class="item">
+          <a :href="item.link" target="_blank">
+          <span style="font-weight:bold;">{{item.title}}</span>
+          <span style="float:right">{{item.date}}</span>
+          </a>
+        </div>
+        <div style="margin-top: 20px" class="pag">
+          <el-pagination
+          background
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
+          layout="total,prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
+        </div>
+      </el-card>
     </div>
   </div>
   <footSection/>
-  <img src="/static/img/bg.png" class="listBackground"/>
+  <img src="/static/img/image/1.JPG" class="listBackground"/>
+
   <!-- <div class="listpage">
   </div> -->
   <!-- <homeheader/> -->
@@ -21,14 +38,23 @@
 import homeheader from '@/components/header.vue'
 import footSection from '@/components/footSection.vue'
 export default {
-  components:{
+  data(){
+    return{
+      currentPage:1,
+      pageSize:12,
+      listData:this.$store.state.listData,
+      total:this.$store.state.listData.length,
+    }
+    },
+    components:{
       homeheader,
       footSection
   },
   watch: {
-    listType:''
+    listType:'',
   },
 }
+
 </script>
 
 <style lang='less'>
@@ -39,7 +65,7 @@ export default {
   z-index: -1;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+
 }
 .listMain{
   width:80%;
@@ -49,6 +75,10 @@ export default {
     width:100%;
     border: none;
     min-height: 100vh;
+    position: relative;
+    .el-card__body{
+      padding-top: 40px;
+    }
   }
   .listHeader{
     text-align: left;
@@ -60,6 +90,12 @@ export default {
     margin-bottom: 20px;
   }
 }
+.pag{
+  position: absolute;
+  bottom: 20px;
+  left:0;
+  right: 0;
+}
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -70,4 +106,22 @@ export default {
 *::-webkit-scrollbar-track {
   background-color: transparent;
 }
+a{
+  font-size: 17px;
+  color: black;
+}
+a:link{
+  text-decoration:none;
+}
+a:hover{
+  color:#14427E;
+}
+.item {
+  font-size: 18px;
+  cursor: pointer;
+  padding: 9px 5px;
+  border-bottom:1px dashed lightgray;
+  text-align: left;
+}
+
 </style>
