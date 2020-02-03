@@ -95,6 +95,16 @@ export default {
   bottom: 20px;
   left:0;
   right: 0;
+  .el-pagination__total {
+    color:black;
+    font-weight: bold;
+  }
+  .el-pagination__jump {
+    margin-left: 24px;
+    font-weight: bold;
+    color: black;
+  }
+
 }
 *::-webkit-scrollbar {
   width: 8px;
