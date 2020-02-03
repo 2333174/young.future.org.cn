@@ -5,13 +5,13 @@
         <i class="el-icon-user"/>&nbsp;{{this.$store.state.pageTitle}}
     </div>
     <el-card class='userCard' shadow="hover">
-        <el-form 
-          id="user_form" 
-          label-position="left" 
-          label-width="110px" 
-          :model="userform" 
-          :rules="rules" 
-          ref="userform" 
+        <el-form
+          id="user_form"
+          label-position="left"
+          label-width="110px"
+          :model="userform"
+          :rules="rules"
+          ref="userform"
           class="demo-userForm">
             <el-form-item label="账号" prop="uAccount">
               <el-input v-model="userform.uAccount" placeholder="请输入账号"></el-input>
@@ -84,9 +84,9 @@ export default {
                     { required:true,message:'',validator: validatePass2,trigger:['blur'] }
                 ]
                 }
-            
 
-            
+
+
 
         }
     },
@@ -144,7 +144,7 @@ export default {
   box-shadow: 1px 4px 6px #ccc;
 }
 #user_form{
-  padding-top:1rem; 
+  padding-top:1rem;
 }
 .userCard{
   width:90%;
