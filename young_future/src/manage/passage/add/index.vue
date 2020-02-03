@@ -33,7 +33,14 @@
         <el-form-item id="editorItem" label="内容" prop="content">
           <div ref="editor" style="text-align:left" v-model="passForm.content"></div>
         </el-form-item>
-
+        <el-form-item v-if="passForm.category=='新闻'" label="封面" prop="cover">
+          <el-upload drag class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/"
+            :limit="1" :show-file-list="false" :auto-upload="false">
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
+        </el-form-item>
         <div style="margin:20px auto 5px">
           <el-button v-on:click="Preview">预览</el-button>
           <el-button @click="submit('passForm')" type="success">提交</el-button>
