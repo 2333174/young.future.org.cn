@@ -214,10 +214,10 @@ export default {
           this.$message.error('请先上传版面');
           return
         }
-        this.isPreview=true
-        let file=this.newsForm.coverData[index].cover[0]
-        this.localFile=file.raw
-        let reader = new FileReader()
+        this.isPreview=true;
+        let file=this.newsForm.coverData[index].cover[0];
+        this.localFile=file.raw;
+        let reader = new FileReader();
         reader.readAsDataURL(this.localFile);
         reader.onload=()=>{
             this.previewURL=reader.result
@@ -235,13 +235,13 @@ export default {
       submit(formName){
         let formData= new FormData();
         //封面base信息
-        let cover=this.newsForm.coverList[0].raw
+        let cover=this.newsForm.coverList[0].raw;
         //保存pdf信息
-        let pdfFile=this.newsForm.newsFileList[0].raw
-        let reader = new FileReader()
+        let pdfFile=this.newsForm.newsFileList[0].raw;
+        let reader = new FileReader();
         for (var i in this.newsForm.coverData){
           if (this.newsForm.coverData[i].cover.length<1){
-            this.$message.error("请添加完版面图片后再上传")
+            this.$message.error("请添加完版面图片后再上传");
             return
           }
           formData.append("cover"+i,this.newsForm.coverData[i].cover[0].raw)
@@ -285,7 +285,7 @@ export default {
         }
         this.newsForm.coverList=fileList
         console.log(this.newsForm.coverList);
-        
+
         if (fileList.length>=1){
           this.isHidden1=true
         }
@@ -306,7 +306,7 @@ export default {
         }
         this.newsForm.newsFileList=fileList
         console.log(this.newsForm.coverList);
-        
+
         if (fileList.length>=1){
           this.isHidden2=true;
         }
@@ -318,11 +318,11 @@ export default {
 <style>
 /* 这里写css */
 #newspaper_form{
-  padding-top:1rem; 
+  padding-top:1rem;
 }
 .addMain .addCard{
   width:90%;
-  margin: 0 auto 80px;
+  margin: 20px auto 80px;
 }
 .page_header{
   display: flex;
@@ -341,7 +341,7 @@ export default {
 }
 .step{
   margin: auto;
-  margin-top:20px; 
+  margin-top:20px;
   width: 50%;
 }
 .el-step__title{

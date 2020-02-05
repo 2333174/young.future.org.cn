@@ -1,6 +1,6 @@
 <template>
   <!-- 这里写登录页面html,按规定格式写好注释 -->
-  <div>
+  <div class="addMain">
     <div class="page_header">
       <i class="el-icon-document"/>&nbsp;{{this.$store.state.pageTitle}}
     </div>
@@ -21,7 +21,7 @@
         </el-form-item>
         <el-form-item id="categoryItem" label="类别" prop="category">
           <el-col :span="24">
-            <el-radio-group v-model="passForm.category" clearable  placeholder="请选择类别">
+            <el-radio-group v-model="passForm.category" clearable  placeholder="请选择类别" @change="radioChange">
               <el-radio
                 v-for="item in options"
                 :key="item.value"
@@ -33,11 +33,17 @@
         <el-form-item id="editorItem" label="内容" prop="content">
           <div ref="editor" style="text-align:left" v-model="passForm.content"></div>
         </el-form-item>
-        <el-form-item v-if="passForm.category=='新闻'" label="封面" prop="cover">
-          <el-upload drag class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/"
-            :limit="1" :show-file-list="false" :auto-upload="false">
+        <el-form-item v-show="uploadVisible" label="封面" prop="cover">
+          <el-upload class="upload-demo"
+                     action="https://jsonplaceholder.typicode.com/posts/"
+                     :file-list="passForm.cover"
+                     accept=".jpg,.jpeg,.png,.gif,.bmp,.JPG,.JPEG,.PNG,.GIF,.BMP"
+                     :limit="1"
+                     :auto-upload="false"
+                     :cell-style="{'text-align':'center'}"
+                     :on-change="changeFileList">
             <i class="el-icon-upload"></i>
-            <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__text">将封面图片拖到此处，或<em>点击上传</em></div>
             <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
           </el-upload>
         </el-form-item>
@@ -46,10 +52,7 @@
           <el-button @click="submit('passForm')" type="success">提交</el-button>
         </div>
       </el-form>
-      <!--全屏-->
-      <div id="cover"></div>
     </el-card>
-
   </div>
 </template>
 
@@ -66,11 +69,13 @@
     data() {
       return {
         dialogVisible: false,
+        uploadVisible: false,
         passForm: {
           title: '',
           author: '',
           category: '',
-          content: ''
+          content: '',
+          cover: []
         },
         rules: {
           title: [
@@ -84,6 +89,9 @@
           ],
           content: [
             { required: true, message: '请输入内容', trigger: ['change','blur'] },
+          ],
+          cover: [
+            { required: true, message: '请上传封面', trigger: ['change','blur'] },
           ]
         },
         options: [{
@@ -113,7 +121,8 @@
       editor.customConfig.showLinkImg = false;                // 取消显示网络来源的图片
       editor.customConfig.zIndex = 10;                        // 设置其z-Index
       editor.customConfig.onblur = function (html) {
-          this.$message.error(html);
+        if (html == null || html === '')
+          this.$message.error("文章内容不可为空");
       };
       editor.create();
     },
@@ -123,15 +132,25 @@
        * @description: 仅用于测试
        */
       getContent: function () {
-        alert(this.passForm.content);
+        alert(this.passForm.cover);
       },
       /**
        * @function submit the form
        * @param formName name of the form
        */
       submit: function(formName) {
+        if (this.passForm.title === '' || this.passForm.author === '' ||this.passForm.category === ''
+          || this.passForm.content == null || this.passForm.content === ''
+          || (this.passForm.category === '新闻' && this.passForm.cover == null)) {
+          this.$message.error("请填写必需项");
+          return;
+        }
         let formData = new FormData();
         // 相关数据
+        if (this.passForm.category === '新闻') {
+          let cover = this.passForm.cover[0].raw;
+          formData.append('cover', cover);
+        }
         formData.append('title', this.passForm.title);
         formData.append('author', this.passForm.author);
         formData.append('category', this.passForm.category);
@@ -141,7 +160,7 @@
         this.$axios.post("/api/php/uploadPassage.php", formData).then(
           res=>{
             console.log(res.data);
-            if (res.data.status == 'success') {
+            if (res.data.status === 'success') {
               this.$message.success("上传成功");
               setTimeout(()=> {
                 this.$router.push("/manager/passage/manager")
@@ -152,13 +171,21 @@
           }
         );
       },
-      Preview: function () {
+      Preview: function() {
         const dialogInfo = document.getElementById('dialogInfo');
         this.dialogVisible = true;
         dialogInfo.innerHTML = this.passForm.content;
       },
-    },
-
+      handleRemove: function(file, fileList) {
+        console.log(file, fileList);
+      },
+      radioChange: function() {
+        this.uploadVisible = this.passForm.category === '新闻';
+      },
+      changeFileList: function(file, fileList) {
+        this.passForm.cover = fileList;
+      }
+    }
   }
 </script>
 
@@ -175,7 +202,16 @@
   }
   #categoryItem {
     z-index: 50;
-
+  }
+  .addMain .addCard{
+    width: 90%;
+    margin: 20px auto 80px;
+  }
+  .addMain{
+    overflow: auto;
+  }
+  #passage_form {
+    padding-top:1rem;
   }
   /* table 样式 */
   table {
