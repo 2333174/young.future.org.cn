@@ -11,7 +11,7 @@
  Target Server Version : 80018
  File Encoding         : 65001
 
- Date: 30/01/2020 13:35:46
+ Date: 03/02/2020 11:47:45
 */
 
 SET NAMES utf8mb4;
@@ -28,7 +28,7 @@ CREATE TABLE `passage`  (
   `pPublisher` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '发布者',
   `pCategory` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '类别',
   `pUpdateTime` datetime(0) NOT NULL COMMENT '更新时间',
-  `pContent` longblob NOT NULL COMMENT '内容',
+  `pContent` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '内容',
   `pViews` int(11) NOT NULL COMMENT '浏览量',
   PRIMARY KEY (`pID`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
