@@ -12,7 +12,7 @@
             <div >
               <el-card :body-style="{ padding: '0px' }">
                 <div >
-                  <img :src="item.imgUrl" style="width:100%" />
+                  <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" style="width:100%" />
                   <div style="padding-bottom: 10px;">
                     <div class="bottom clearfix">
                       <el-button type="text" class="button" @click="$router.push('/LQBList/'+item.title)">{{item.title}}</el-button>

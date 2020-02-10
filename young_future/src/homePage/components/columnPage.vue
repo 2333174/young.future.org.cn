@@ -8,7 +8,7 @@
       <div class="news_block">
         <el-carousel @change="newsChange">
           <el-carousel-item v-for="item in newsList" :key="item.pID">
-            <img :src="item.imgUrl" style="width:100%"/>
+            <img :src="'/api/passage/'+item.pID+'.jpg'" style="width:100%"/>
           </el-carousel-item>
         </el-carousel>
       </div>
