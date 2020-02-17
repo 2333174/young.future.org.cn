@@ -5,12 +5,64 @@
     <div class='listMain'>
       <div class="listHeader">{{$store.state.listType}}</div>
       <el-card class='listCard'>
-        <div v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
+        <div v-if="$store.state.listType!='珞青报'" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
           <a :href="item.link" target="_blank">
           <span style="font-weight:bold;">{{item.pTitle}}</span>
           <span style="float:right">{{item.pUpdateTime|normalizeTime}}</span>
           </a>
         </div>
+
+        <div v-if="$store.state.listType ='珞青报' " align="center">
+          <div>
+            <el-row type="flex" class="row-bg" justify="space-around" >
+              <el-col :span="5" v-for="item in listData.slice(0, 4)" :key="item.title" >
+                <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
+                  <img :src="item.imgsrc" class="image">
+                  <div style="padding: 0px;">
+                    <div class="bottom clearfix" style="padding-bottom: 10px;">
+                      <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
+                      <div class="text">{{item.title}}</div>
+                      <div class="time">{{item.date}}</div>         
+                    </div>
+                  </div>
+                </el-card>
+              </el-col>
+            </el-row>
+          </div>
+          <div>
+            <el-row type="flex" class="row-bg" justify="space-around" >
+              <el-col :span="5" v-for="item in listData.slice(0, 4)" :key="item.title" >
+                <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
+                  <img :src="item.imgsrc" class="image">
+                  <div style="padding: 0px;">
+                    <div class="bottom clearfix" style="padding-bottom: 10px;">
+                      <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
+                      <div class="text">{{item.title}}</div>
+                      <div class="time">{{item.date}}</div>       
+                    </div>
+                  </div>
+                </el-card>
+              </el-col>
+            </el-row>
+          </div>
+          <div>
+            <el-row type="flex" class="row-bg" justify="space-around" >
+              <el-col :span="5" v-for="item in listData.slice(0, 4)" :key="item.title" >
+                <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
+                  <img :src="item.imgsrc" class="image">
+                  <div style="padding: 0px;">
+                    <div class="bottom clearfix" style="padding-bottom: 10px;">
+                      <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
+                      <div class="text">{{item.title}}</div>
+                      <div class="time">{{item.date}}</div>   
+                    </div>
+                  </div>
+                </el-card>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+
         <div style="margin-top: 20px" class="pag">
           <el-pagination
           background
@@ -192,4 +244,58 @@ a:hover{
   text-align: left;
 }
 
+ .time {
+    font-size: 13px;
+    color: #999;
+  }
+  
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+    margin:0px 5px 0px 0px;
+    
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+      display: table;
+      content: "";
+  }
+  
+  .clearfix:after {
+      clear: both
+  }
+  .news {
+
+  }
+  .text {
+    font-size:15px;
+    margin:0px 0px 7px 0px;
+    line-height:20px;
+    font-family: Heiti SC;
+    font-weight: 520
+  }
+
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .row-bg {
+    padding: 10px 0;
+  }
 </style>
