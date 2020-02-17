@@ -47,40 +47,6 @@ export default {
       titleName:"",
     }
   },
-  mounted() {
-    switch (this.$route.query.type) {
-      case "news":
-        this.$store.state.listType="新闻"
-        break;
-      case "literature":
-        this.$store.state.listType="文韵"
-        break;
-      case "newspaper":
-        this.$store.state.listType="珞青报"
-        break;
-      case "courier":
-        this.$store.state.listType="最新速递"
-        break;
-      case "handpicked":
-        this.$store.state.listType="往期精选"
-        break;
-      case "topic":
-        this.$store.state.listType="专题"
-        break;
-      default:
-        break;
-    }
-  },
-  watch:{
-    '$store.state.listType':function(newFlag, oldFlag){
-       console.log(newFlag,oldFlag);
-       
-       this.$axios("/api/php/getListPage.php?type="+newFlag).then((res)=>{
-         console.log(res.data)
-       })
-       //更新列表数据
-    }
-  }
 }
 </script>
 <style lang='less'>

@@ -14,6 +14,7 @@
     $list = array();
     mysqli_set_charset($content, 'utf-8');   
     if ($content) { 
+      //mysql查找语句
       $sqlStr = "SELECT * FROM newspaper;";
       $result = mysqli_query($content, $sqlStr);
       if(mysqli_num_rows($result)>0){
@@ -100,6 +101,7 @@
     
     
     if ($content) { 
+      //mysql查找语句
       $sqlStr = "SELECT * FROM users where uID='".$UID."';";
       $result = mysqli_query($content, $sqlStr);
       $UID_judge=false;

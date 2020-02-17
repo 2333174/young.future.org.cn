@@ -1,7 +1,22 @@
 <?php
-    //删除用户
-    function deleteUser($pID){
-        $hostName = "localhost:3306";
+	//删除新闻图片文件：
+	function deldir($dir) {
+		//删除当前文件夹：
+		if(unlink($dir)) {
+		   return true;
+		} else {
+		   return false;
+		}
+	}
+    //删除文章
+    function deletePassage($pID){
+        $dir="../passage/".$pID.".jpg";
+		if (file_exists($dir)){
+			if(!deldir($dir)){
+				die(array('status'=>"failed",'message'=>'删除失败'));
+			}
+		}
+		$hostName = "localhost:3306";
         $username = "root";
         $password = "root";
         $dbname = "young_future";
@@ -17,7 +32,7 @@
         return array('status'=>"success",'message'=>'删除成功');
     }
 
-    //获取用户信息
+    //获取文章信息
     function getList(){
         $hostName = "localhost:3306";
         $username = "root";
@@ -27,9 +42,9 @@
         $list = array();
         mysqli_set_charset($content, 'utf-8');   
         if ($content) { 
-          $sqlStr = "SELECT * FROM passage;";  //找users表
+          $sqlStr = "SELECT * FROM passage;";  //找文章表
           $result = mysqli_query($content, $sqlStr);
-          if(mysqli_num_rows($result)>0){//如果users表里列的数量大于0
+          if(mysqli_num_rows($result)>0){//如果passage表里列的数量大于0
             while($row = mysqli_fetch_assoc($result)) {//每一行赋值给$list
                 unset($row['pContent']);
                 $list[]=$row;
@@ -107,6 +122,6 @@
       exit(json_encode($arr));
     }else if($type=="delete"){//如果网页要求delete信息
       $pID=$_GET['pID'];
-      exit(json_encode(deleteUser($pID)));
+      exit(json_encode(deletePassage($pID)));
     }
 ?>

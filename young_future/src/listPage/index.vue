@@ -5,10 +5,10 @@
     <div class='listMain'>
       <div class="listHeader">{{$store.state.listType}}</div>
       <el-card class='listCard'>
-        <div v-for="item in listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < this.total?currentPage * pageSize:this.total)"  class="item">
+        <div v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
           <a :href="item.link" target="_blank">
-          <span style="font-weight:bold;">{{item.title}}</span>
-          <span style="float:right">{{item.date}}</span>
+          <span style="font-weight:bold;">{{item.pTitle}}</span>
+          <span style="float:right">{{item.pUpdateTime|normalizeTime}}</span>
           </a>
         </div>
         <div style="margin-top: 20px" class="pag">
@@ -17,7 +17,7 @@
           :current-page.sync="currentPage"
           :page-size="pageSize"
           layout="total,prev, pager, next, jumper"
-          :total="total">
+          :total="$store.state.listData.length">
         </el-pagination>
         </div>
       </el-card>
@@ -42,16 +42,74 @@ export default {
     return{
       currentPage:1,
       pageSize:12,
-      listData:this.$store.state.listData,
-      total:this.$store.state.listData.length,
+      // listData:this.$store.state.listData,
+      // total:this.$store.state.listData.length,
     }
     },
     components:{
       homeheader,
       footSection
   },
-  watch: {
-    listType:'',
+  watch:{
+    '$store.state.listType':function(newFlag, oldFlag){
+       console.log(newFlag,oldFlag);
+       this.$axios.get("/api/php/getListPage.php?type="+newFlag).then((res)=>{
+         if(res.data.status=='success'){
+          this.$store.state.listData=res.data.list
+         }else{
+           this.$message.error(res.data.message)
+         }
+       })
+       //更新列表数据
+    }
+  },
+  mounted() {
+    console.log(this.$store.state.listType,'test');
+    switch (this.$route.query.type) {
+      case "news":
+        this.$store.state.listType="新闻"
+        break;
+      case "literature":
+        this.$store.state.listType="文韵"
+        break;
+      case "newspaper":
+        this.$store.state.listType="珞青报"
+        break;
+      case "courier":
+        this.$store.state.listType="最新速递"
+        break;
+      case "handpicked":
+        this.$store.state.listType="往期精选"
+        break;
+      case "topic":
+        this.$store.state.listType="专题"
+        break;
+      default:
+        break;
+    }
+    this.$axios
+      .get("/api/php/getListPage.php?type="+this.$store.state.listType)
+      .then((res)=>{
+        if(res.data.status=='success'){
+        this.$store.state.listData=res.data.list
+        }else{
+          this.$message.error(res.data.message)
+        }
+    })
+  },
+  filters:{
+    normalizeTime(strDate) {
+      var date = new Date(strDate)
+      var timeNum = 8 //小时数
+      date.setHours(date.getHours() + timeNum)
+      var y = date.getFullYear()
+      var m = date.getMonth() + 1
+      m = m < 10 ? '0' + m : m
+      var d = date.getDate()
+      d = d < 10 ? '0' + d : d
+      var str = y + '-' + m + '-' + d
+      return str
+    }
   },
 }
 

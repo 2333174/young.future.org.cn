@@ -36,7 +36,7 @@
                 更多
               </el-button>
             </div>
-          <div>
+          <div class='columnCard'>
               <ul style="list-style: none" v-for="item in newsqList">
                 <li >
                   <a :href="'/newsqList/'+item.pID" target="_blank">
@@ -44,7 +44,7 @@
                       {{item.pTitle}}
                     </div>
                     <div class="listDate">
-                      {{item.pUpdateTime}}
+                      {{item.pUpdateTime|normalizeTime}}
                     </div>
                   </a>
                 </li>
@@ -60,7 +60,7 @@
                   更多
                 </el-button>
               </div>
-              <div>
+              <div class='columnCard'>
                 <ul style="list-style: none" v-for="item in handPickedList">
                   <li>
                     <a :href="'/handPickedList/'+item.pID" target="_blank">
@@ -68,7 +68,7 @@
                         {{item.pTitle}}
                       </div>
                       <div class="listDate">
-                        {{item.pUpdateTime}}
+                        {{item.pUpdateTime|normalizeTime}}
                       </div>
                     </a>
                   </li>
@@ -84,7 +84,7 @@
               更多
             </el-button>
           </div>
-             <div>
+             <div class='columnCard'>
                <ul style="list-style: none" v-for="item in topicList">
                  <li>
                    <a :href=" '/topicList/'+item.pID" target="_blank">
@@ -92,7 +92,7 @@
                        {{item.pTitle}}
                      </div>
                      <div class="listDate">
-                       {{item.pUpdateTime}}
+                       {{item.pUpdateTime|normalizeTime}}
                      </div>
                    </a>
                  </li>
@@ -118,6 +118,20 @@ export default {
     }
   },
   props:["LQBList","newsqList","handPickedList","topicList"],
+  filters:{
+    normalizeTime(strDate) {
+      var date = new Date(strDate)
+      var timeNum = 8 //小时数
+      date.setHours(date.getHours() + timeNum)
+      var y = date.getFullYear()
+      var m = date.getMonth() + 1
+      m = m < 10 ? '0' + m : m
+      var d = date.getDate()
+      d = d < 10 ? '0' + d : d
+      var str = y + '-' + m + '-' + d
+      return str
+    }
+  },
   methods: {
     onWaypoint_muti ({ el, going, direction }) {
       // going: in, out
@@ -172,6 +186,7 @@ export default {
   .listContain{
     width: 270px;
     height: 30px;
+    padding: 5px;
     text-align: left;
     float: left;
     padding-left: 0px;
