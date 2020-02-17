@@ -74,8 +74,10 @@ export default {
   watch:{
     '$store.state.listType':function(newFlag, oldFlag){
        console.log(newFlag,oldFlag);
-       this.$axios.get('/api/php/getNewspaper.php?type='+newFlag).then((res)=>{
-         console.log(res.data)})
+       
+       this.$axios("/api/php/getListPage.php?type="+newFlag).then((res)=>{
+         console.log(res.data)
+       })
        //更新列表数据
     }
   }

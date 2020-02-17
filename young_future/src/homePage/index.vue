@@ -116,9 +116,15 @@ export default {
      * 5条最新的新闻 5条文韵文章 4条珞青报 4条往期精选 4条新闻快讯 4条专题
      * 将信息分别绑定到newsList artList等data上
      *  */ 
-    // this.$axios.get('/api/php/').then(res=>{
-
-    // })
+    this.$axios.get('/api/php/getHomeList.php').then(res=>{
+      console.log(res.data);
+      this.newsList=res.data.list.newsList
+      this.artList=res.data.list.artList
+      this.LQBList=res.data.list.LQBList
+      this.newsqList=res.data.list.newsqList
+      this.handPickedList=res.data.list.handPickedList
+      this.topicList=res.data.list.topicList
+    })
   }
 }
 </script>
