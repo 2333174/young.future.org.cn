@@ -32,8 +32,8 @@
         >专题</span>
       </div>
       <div class="right">
-        <el-input placeholder="请输入文章标题" v-model="titleName" class="searchClass">
-          <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-input placeholder="请输入文章标题" v-model="titleName" @keyup.enter.native="enterSearch" class="searchClass">
+          <el-button slot="append" icon="el-icon-search" @click="enterSearch"></el-button>
         </el-input>
       </div>
     </div>
@@ -45,6 +45,17 @@ export default {
   data() {
     return {
       titleName:"",
+    }
+  },
+  methods: {
+    enterSearch(){
+      this.$router.push({path:'/listpage',query:{type:'search',keyword:this.titleName}})
+      this.$axios
+        .get("/api/php/getListPage.php?type=search&keyword="+this.titleName)
+        .then(res=>{
+          console.log(res.data);
+          this.$store.state.listData=res.data.list     
+        })
     }
   },
 }
@@ -106,7 +117,7 @@ export default {
     .right {
       display: flex;
       .searchClass {
-        border: 0.5px solid rgb(101, 101, 101);
+        border: 0.7px solid rgb(101, 101, 101);
         border-radius: 50%;
         background: rgb(250, 250, 250);
         position: relative;
@@ -134,7 +145,7 @@ export default {
         }
       }
       .searchClass:hover {
-        border: 0.5px solid rgb(101, 101, 101);
+        border: 0.7px solid rgb(101, 101, 101);
         border-radius: 20px;
         background: #fff;
         .el-icon-search {

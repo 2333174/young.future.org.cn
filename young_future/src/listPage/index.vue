@@ -105,13 +105,25 @@ export default {
   watch:{
     '$store.state.listType':function(newFlag, oldFlag){
        console.log(newFlag,oldFlag);
-       this.$axios.get("/api/php/getListPage.php?type="+newFlag).then((res)=>{
-         if(res.data.status=='success'){
-          this.$store.state.listData=res.data.list
-         }else{
-           this.$message.error(res.data.message)
-         }
-       })
+       if (this.$route.query.type!=='search'){
+        this.$axios.get("/api/php/getListPage.php?type="+newFlag).then((res)=>{
+          if(res.data.status=='success'){
+            this.$store.state.listData=res.data.list
+          }else{
+            this.$message.error(res.data.message)
+          }
+        })
+       }else{
+         this.$axios
+        .get("/api/php/getListPage.php?type=search&keyword="+this.$route.query.keyword)
+        .then(res=>{
+          if(res.data.status=='success'){
+            this.$store.state.listData=res.data.list
+          }else{
+            this.$message.error(res.data.message)
+          }   
+        })
+       }
        //更新列表数据
     }
   },
@@ -136,18 +148,33 @@ export default {
       case "topic":
         this.$store.state.listType="专题"
         break;
+      case "search":
+        this.$store.state.listType="搜索结果"
+        break;
       default:
         break;
     }
-    this.$axios
-      .get("/api/php/getListPage.php?type="+this.$store.state.listType)
-      .then((res)=>{
-        if(res.data.status=='success'){
-        this.$store.state.listData=res.data.list
-        }else{
-          this.$message.error(res.data.message)
-        }
-    })
+    if (this.$route.query.type!=='search'){
+      this.$axios
+        .get("/api/php/getListPage.php?type="+this.$store.state.listType)
+        .then((res)=>{
+          if(res.data.status=='success'){
+          this.$store.state.listData=res.data.list
+          }else{
+            this.$message.error(res.data.message)
+          }
+      })
+    }else if (this.$route.query.type==='search'){
+      this.$axios
+        .get("/api/php/getListPage.php?type=search&keyword="+this.$route.query.keyword)
+        .then(res=>{
+          if(res.data.status=='success'){
+            this.$store.state.listData=res.data.list
+          }else{
+            this.$message.error(res.data.message)
+          }   
+        })
+    }
   },
   filters:{
     normalizeTime(strDate) {
