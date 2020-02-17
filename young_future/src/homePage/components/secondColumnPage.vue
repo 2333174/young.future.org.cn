@@ -7,16 +7,16 @@
             <span class="news-header">珞&nbsp;&nbsp;青&nbsp;&nbsp;报</span>
           </div>  
         </el-header>
-        <el-row type="flex" class="row-bg" justify="center" :gutter="80" style="margin:15px 0px auto">
+        <el-row type="flex" justify="center" :gutter="80" style="margin:15px 0px auto">
           <el-col :span="5" v-for="item in LQBList" :key="item.title" >
             <div >
               <el-card :body-style="{ padding: '0px' }">
                 <div >
                   <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" style="width:100%" />
                   <div style="padding-bottom: 10px;">
-                    <div class="bottom clearfix">
+                    <div>
                       <el-button type="text" class="button" @click="$router.push('/LQBList/'+item.title)">{{item.title}}</el-button>
-                      <div>{{ item.updateTime }} </div>
+                      <div>{{ item.uploadTime }} </div>
                     </div>
                   </div>
                 </div>

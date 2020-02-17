@@ -12,17 +12,17 @@
           </a>
         </div>
 
-        <div v-if="$store.state.listType ='珞青报' " align="center">
+        <div v-if="$store.state.listType =='珞青报' " align="center">
           <div>
-            <el-row type="flex" class="row-bg" justify="space-around" >
-              <el-col :span="5" v-for="item in listData.slice(0, 4)" :key="item.title" >
+            <el-row  type="flex" class="newspaperList row-bg" justify="space-around" >
+              <el-col :span="5" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize+0, (currentPage - 1) * pageSize+4)" :key="item.title" >
                 <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
-                  <img :src="item.imgsrc" class="image">
+                  <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image">
                   <div style="padding: 0px;">
                     <div class="bottom clearfix" style="padding-bottom: 10px;">
                       <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
                       <div class="text">{{item.title}}</div>
-                      <div class="time">{{item.date}}</div>         
+                      <div class="time">{{item.uploadTime}}</div>         
                     </div>
                   </div>
                 </el-card>
@@ -30,15 +30,15 @@
             </el-row>
           </div>
           <div>
-            <el-row type="flex" class="row-bg" justify="space-around" >
-              <el-col :span="5" v-for="item in listData.slice(0, 4)" :key="item.title" >
+            <el-row type="flex" class="newspaperList row-bg" justify="space-around" >
+              <el-col :span="5" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize+4, (currentPage - 1) * pageSize+8)" :key="item.title" >
                 <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
-                  <img :src="item.imgsrc" class="image">
+                  <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image">
                   <div style="padding: 0px;">
                     <div class="bottom clearfix" style="padding-bottom: 10px;">
                       <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
                       <div class="text">{{item.title}}</div>
-                      <div class="time">{{item.date}}</div>       
+                      <div class="time">{{item.uploadTime}}</div>       
                     </div>
                   </div>
                 </el-card>
@@ -46,15 +46,15 @@
             </el-row>
           </div>
           <div>
-            <el-row type="flex" class="row-bg" justify="space-around" >
-              <el-col :span="5" v-for="item in listData.slice(0, 4)" :key="item.title" >
+            <el-row type="flex" class="newspaperList row-bg" justify="space-around" >
+              <el-col :span="5" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize+8, (currentPage - 1) * pageSize+12)" :key="item.title" >
                 <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
-                  <img :src="item.imgsrc" class="image">
+                  <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image">
                   <div style="padding: 0px;">
                     <div class="bottom clearfix" style="padding-bottom: 10px;">
                       <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
                       <div class="text">{{item.title}}</div>
-                      <div class="time">{{item.date}}</div>   
+                      <div class="time">{{item.uploadTime}}</div>   
                     </div>
                   </div>
                 </el-card>
@@ -167,7 +167,7 @@ export default {
 
 </script>
 
-<style lang='less'>
+<style lang="less" scoped>
 .listBackground{
   position: absolute;
   top:0px;
@@ -286,7 +286,7 @@ a:hover{
     font-weight: 520
   }
 
-  .el-row {
+  .newspaperList {
     margin-bottom: 20px;
     &:last-child {
       margin-bottom: 0;
