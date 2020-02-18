@@ -64,4 +64,5 @@ export default {
 *::-webkit-scrollbar-track {
   background-color: transparent;
 }
+
 </style>

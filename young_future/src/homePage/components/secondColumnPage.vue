@@ -15,8 +15,8 @@
                   <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" style="width:100%" />
                   <div style="padding-bottom: 10px;">
                     <div>
-                      <el-button type="text" class="button" @click="$router.push('/LQBList/'+item.title)">{{item.title}}</el-button>
-                      <div>{{ item.uploadTime }} </div>
+                      <el-button type="text" class="button" @click="$router.push('/newspaper/'+item.title)">{{item.title}}</el-button>
+                      <div>{{ item.uploadTime|normalizeTime }} </div>
                     </div>
                   </div>
                 </div>

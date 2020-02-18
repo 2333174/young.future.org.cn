@@ -73,6 +73,7 @@ export default {
     height: 100%;
     display: flex;
     justify-content: space-between;
+    padding-right:20px; 
     .logo-info {
       display: flex;
       align-items: center;
@@ -123,7 +124,7 @@ export default {
         position: relative;
         -ms-filter: none !important;
         filter: none !important;
-        margin: auto 20px;
+        margin: auto;
         .el-input-group__append {
           border: none;
           background-color: transparent;
@@ -142,6 +143,8 @@ export default {
         }
         .el-button {
           padding: 0;
+          margin-top:0px;
+          margin-bottom: 0px; 
         }
       }
       .searchClass:hover {
@@ -166,6 +169,8 @@ export default {
         }
         .el-button {
           padding: 12px 20px;
+          margin-top:0px;
+          margin-bottom: 0px; 
         }
       }
     }
