@@ -10,6 +10,7 @@ import ManagePassage from '@/manage/passage/manage'
 import Manage from '@/manage'
 import HomePage from '@/homePage'
 import ListPage from '@/listPage'
+import Article from '@/contentPage/article.vue'
 
 Vue.use(Router)
 const originalPush = Router.prototype.push
@@ -19,6 +20,11 @@ Router.prototype.push = function push(location) {
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path:'/article/:id',
+      name:'Article',
+      component:Article
+    },
     {
       path: '/manager',
       name: 'Manage',

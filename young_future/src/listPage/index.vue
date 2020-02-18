@@ -97,8 +97,8 @@ export default {
       // listData:this.$store.state.listData,
       // total:this.$store.state.listData.length,
     }
-    },
-    components:{
+  },
+  components:{
       homeheader,
       footSection
   },
