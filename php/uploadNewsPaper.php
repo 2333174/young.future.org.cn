@@ -91,9 +91,10 @@
       "../newspaper/". $title .  "/". $title .".pdf");
     }
   }
-  $uploadTime = date('Y-m-d');
-  $sqlStr = "INSERT INTO newspaper (title,uploadTime,uploadPerson,viewTimes)
-  VALUES ('$title','$uploadTime','$uploadPerson','0');";
+  date_default_timezone_set("PRC");
+  $uploadTime = date("Y-m-d H:i:s");
+  $sqlStr = "INSERT INTO newspaper (title,uploadTime,uploadPerson,viewTimes,coverNum)
+  VALUES ('$title','$uploadTime','$uploadPerson','0','$coverNum');";
   $result = mysqli_query($content, $sqlStr);
   mysqli_close($content);
   $arr = array('status'=>"success");
