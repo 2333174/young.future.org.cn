@@ -4,7 +4,7 @@
     <div class="main">
       <el-card class="articleTitle">
         <div class="title">
-            文章标题
+            {{this.article.pTitle}}
           </div>
           <div class="articleInfo">
             <span class="info"><i class="el-icon-edit"></i>作者:{{this.article.pAuthor}}</span>
@@ -34,8 +34,14 @@ export default {
   },
   mounted() {
     console.log(this.$route.params.id);
-    const articleContent_el = document.getElementById('articleContent');
-    articleContent_el.innerHTML = this.article.pContent;
+    this.$axios
+      .get("/api/php/getContent.php?type=article&key="+this.$route.params.id)
+      .then((res)=>{
+        console.log(res.data);
+        this.article=res.data.content[0]
+        const articleContent_el = document.getElementById('articleContent');
+        articleContent_el.innerHTML = this.article.pContent;
+      })
   },
   components:{
       homeheader,
@@ -46,7 +52,7 @@ export default {
 
 <style lang="less" scoped>
 .main{
-  padding:10px;
+  padding:10px 30px;
   background-color: #f1f1f1;
   min-height: 80vh;
   .articleTitle{
@@ -68,7 +74,18 @@ export default {
     }
   }
 }
+.articleCard{
+  margin-bottom:20px; 
+}
 #articleContent{
+  text-align: left;
+  font-size: 14px;
+  p{
+    img{
+      text-align: center;
+      width:70% !important;
+    }
+  }
   
 }
 *::-webkit-scrollbar {
@@ -80,5 +97,8 @@ export default {
 }
 *::-webkit-scrollbar-track {
   background-color: transparent;
+}
+.w-e-text p{
+  margin: 20px;
 }
 </style>

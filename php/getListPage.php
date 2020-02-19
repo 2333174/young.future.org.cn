@@ -12,12 +12,13 @@ function getList(){
 	  exit(json_encode($List));
   }
   if($conn){
-	  if ($type!='珞青报'){
-        $sqlstr =" SELECT pID , pTitle, pUpdateTime From passage Where pCategory='$type' order by pUpdateTime ASC";
-	  } elseif ($type=='珞青报'){
+	  if ($type=='珞青报'){
 		$sqlstr =" SELECT title, uploadTime From newspaper "; 
-	  }else {
-		$sqlstr = "";
+	  }elseif ($type=='search')  {
+		$key=$_GET['keyword'];
+		$sqlstr = "SELECT pID , pTitle, pUpdateTime From passage Where pTitle LIKE '%$key%' order by pUpdateTime ASC";
+	  }elseif ($type!='珞青报'){
+        $sqlstr =" SELECT pID , pTitle, pUpdateTime From passage Where pCategory='$type' order by pUpdateTime ASC";
 	  }
 		$results = mysqli_query($conn, $sqlstr);
 		$data1 = array();

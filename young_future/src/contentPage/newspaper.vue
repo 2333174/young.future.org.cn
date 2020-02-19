@@ -11,9 +11,9 @@
             {{$route.params.title}} <i class="el-icon-download download" @click="download"/>
           </div>
           <div class="newspaperInfo">
-            <span class="info"><i class="el-icon-user"></i>发布者：青年传媒集团</span>
-            <span class="info"><i class="el-icon-time"></i>发布时间：2020-02-18 16:21:22</span>
-            <span class="info"><i class="el-icon-view"></i>浏览量：20</span>
+            <span class="info"><i class="el-icon-user"></i>发布者：{{this.newspaperInfo.uploadPerson}}</span>
+            <span class="info"><i class="el-icon-time"></i>发布时间：{{this.newspaperInfo.uploadTime}}</span>
+            <span class="info"><i class="el-icon-view"></i>浏览量：{{this.newspaperInfo.viewTimes}}</span>
           </div>
         </el-card>
         <el-card id='newspaperCard'>
@@ -45,18 +45,12 @@ import ElImageViewer from 'element-ui/packages/image/src/image-viewer'
 export default {
   data() {
     return {
-      newspaperImg:[
-        '/static/img/newspaperTest/1.jpg',
-        '/static/img/newspaperTest/2.jpg',
-        '/static/img/newspaperTest/3.jpg',
-        '/static/img/newspaperTest/4.jpg',
-        '/static/img/newspaperTest/5.jpg',
-        '/static/img/newspaperTest/6.jpg',
-      ],
+      newspaperImg:[],
       previewUrl:'',
       showViewer:false,
       width:0,
       height:0,
+      newspaperInfo:{}
     }
   },
   methods: {
@@ -91,33 +85,44 @@ export default {
       }
     }
   },
-  mounted() {
-    console.log(this.$route.params.title);
-    this.width=document.getElementById('newspaperCard').offsetWidth-40
-    this.height=this.width*(4678/6650)
-    window.onresize = ()=>{
-      this.width = document.getElementById('newspaperCard').offsetWidth-40;
-      this.height =this. width*(4678/6650)
-      $('#flipbook').turn('size', this.width, this.height);
-    };
-    let self=this
-    $("#flipbook").turn({
-        width:this.width,
-        height:this.height,
-        autoCenter: true,
-        when: {
-          turning: function(event, page, pageObject) {
-            console.log(page);
-            if (page==1 || page==self.newspaperImg.length){
-              $('.leftArrow').css('left','10%');
-              $('.rightArrow').css('right','10%');
-            }else{
-              $('.leftArrow').css('left','0');
-              $('.rightArrow').css('right','0');
-            }
+  mounted() {   
+    this.$axios
+      .get("/api/php/getContent.php?type=newspaper&key="+this.$route.params.title)
+      .then((res)=>{
+        if (res.data.status=='success'){
+          this.newspaperInfo=res.data.content[0]
+          for(var i=0;i<this.newspaperInfo.coverNum;i++){
+            this.newspaperImg.push('/api/newspaper/'+this.newspaperInfo.title+'/cover'+i+'.jpg')
           }
+        }else{
+          this.$message.error('获取珞青报失败')
         }
-    });
+      }).then(()=>{
+        this.width=document.getElementById('newspaperCard').offsetWidth-40
+          this.height=this.width*(4678/6650)
+          let self=this
+          $("#flipbook").turn({
+              width:this.width,
+              height:this.height,
+              autoCenter: true,
+              when: {
+                turning: function(event, page, pageObject) {
+                  if (page==1 || page==self.newspaperImg.length){
+                    $('.leftArrow').css('left','10%');
+                    $('.rightArrow').css('right','10%');
+                  }else{
+                    $('.leftArrow').css('left','0');
+                    $('.rightArrow').css('right','0');
+                  }
+                }
+              }
+          });
+          window.onresize = ()=>{
+            this.width = document.getElementById('newspaperCard').offsetWidth-40;
+            this.height =this. width*(4678/6650)
+            $('#flipbook').turn('size', this.width, this.height);
+          };
+      })
   },
   components:{
       homeheader,
