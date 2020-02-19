@@ -41,6 +41,7 @@ export default {
         this.article=res.data.content[0]
         const articleContent_el = document.getElementById('articleContent');
         articleContent_el.innerHTML = this.article.pContent;
+        articleContent_el.innerHTML += "<link rel='stylesheet' href='/static/css/style.css'>"
       })
   },
   components:{
@@ -55,11 +56,10 @@ export default {
   padding:10px 30px;
   background-color: #f1f1f1;
   min-height: 80vh;
-  .articleTitle{
-    margin-bottom: 10px;
-  }
 }
 .articleTitle{
+  margin-top: 20px;
+  margin-bottom: 10px;
   .title{
     font-size: 18px;
     font-weight: bold;
