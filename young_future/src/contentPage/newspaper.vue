@@ -6,9 +6,21 @@
           v-if="showViewer" 
           :on-close="closeViewer" 
           :url-list="[previewUrl]" />
-        <el-card>
+        <el-card class="titleCard">
+          <div class="title">
+            {{$route.params.title}} <i class="el-icon-download download" @click="download"/>
+          </div>
+          <div class="newspaperInfo">
+            <span class="info"><i class="el-icon-user"></i>发布者：青年传媒集团</span>
+            <span class="info"><i class="el-icon-time"></i>发布时间：2020-02-18 16:21:22</span>
+            <span class="info"><i class="el-icon-view"></i>浏览量：20</span>
+          </div>
+        </el-card>
+        <el-card id='newspaperCard'>
+          <i class='el-icon-back leftArrow' @click="paperBack"/>
+          <i class='el-icon-right rightArrow' @click="paperGo"/>
           <div id="flipbook"> 
-              <el-image v-for="item in newspaperImg" @dblclick="previewPicture(item)" :key='item'
+              <el-image class="newsImage" v-for="item in newspaperImg" @dblclick="previewPicture(item)" :key='item'
                 :src="item">
               </el-image>
               <!-- <div> Page 2 </div>
@@ -42,24 +54,70 @@ export default {
         '/static/img/newspaperTest/6.jpg',
       ],
       previewUrl:'',
-      showViewer:false
+      showViewer:false,
+      width:0,
+      height:0,
     }
   },
   methods: {
     previewPicture(src){
       this.previewUrl=src;
-      this.showViewer=true
+      this.showViewer=true;
     },
     closeViewer(){
       this.showViewer=false
+    },
+    download(){
+      window.open('/api/newspaper/'+this.$route.params.title+'/'+this.$route.params.title+'.pdf')
+    },
+    paperBack(){
+      $("#flipbook").turn("previous");
+      if ($("#flipbook").turn("page")==1){
+        $('.leftArrow').css('left','10%');
+        $('.rightArrow').css('right','10%');
+      }else{
+        $('.leftArrow').css('left','0');
+        $('.rightArrow').css('right','0');
+      }
+    },
+    paperGo(){
+      $("#flipbook").turn("next");
+      if ($("#flipbook").turn("page")==this.newspaperImg.length){
+        $('.leftArrow').css('left','10%');
+        $('.rightArrow').css('right','10%');
+      }else{
+        $('.leftArrow').css('left','0');
+        $('.rightArrow').css('right','0');
+      }
     }
   },
   mounted() {
     console.log(this.$route.params.title);
+    this.width=document.getElementById('newspaperCard').offsetWidth-40
+    this.height=this.width*(4678/6650)
+    window.onresize = ()=>{
+      this.width = document.getElementById('newspaperCard').offsetWidth-40;
+      this.height =this. width*(4678/6650)
+      $('#flipbook').turn('size', this.width, this.height);
+    };
+    let self=this
     $("#flipbook").turn({
-    height: 1200,
-		autoCenter: true
-	});
+        width:this.width,
+        height:this.height,
+        autoCenter: true,
+        when: {
+          turning: function(event, page, pageObject) {
+            console.log(page);
+            if (page==1 || page==self.newspaperImg.length){
+              $('.leftArrow').css('left','10%');
+              $('.rightArrow').css('right','10%');
+            }else{
+              $('.leftArrow').css('left','0');
+              $('.rightArrow').css('right','0');
+            }
+          }
+        }
+    });
   },
   components:{
       homeheader,
@@ -71,12 +129,59 @@ export default {
 
 <style lang="less" scoped>
 .main{
-  padding:10px;
   background-color: #f1f1f1;
   min-height: 80vh;
   padding: 20px;
-  .el-card{
+  .titleCard{
+    .title{
+      font-size: 18px;
+      font-weight: bold;
+      .download{
+        cursor: pointer;
+      }
+      .download:hover{
+        color: #409eff;
+      }
+    }
+    .newspaperInfo{
+      font-size:15px;
+      margin-top:5px;
+      width: 100%; 
+      position: relative;
+      .info{
+        margin-right: 20px;
+      }
+    }
+  }
+  #newspaperCard{
+    // display: flex;
     text-align: center;
+    background-color: #f1f1f1;
+    border: none;
+    box-shadow:none;
+    position: relative;
+    .el-card__body{
+      padding: 0;
+    }
+    #flipbook{
+      z-index: 1;
+    }
+    .leftArrow{
+      z-index: 2;
+      position: absolute;
+      cursor: pointer;
+      font-size: 30px;
+      left:10%;
+      top:50%
+    }
+    .rightArrow{
+      z-index: 2;
+      position: absolute;
+      cursor: pointer;
+      font-size: 30px;
+      right:10%;
+      top:50%
+    }
     // #flipbook{
     //   margin: 0 auto;
     // }
