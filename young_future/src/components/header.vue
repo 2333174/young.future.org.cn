@@ -50,6 +50,7 @@ export default {
   methods: {
     enterSearch(){
       this.$router.push({path:'/listpage',query:{type:'search',keyword:this.titleName}})
+      this.$store.state.listType='搜索结果'
       this.$axios
         .get("/api/php/getListPage.php?type=search&keyword="+this.titleName)
         .then(res=>{

@@ -5,14 +5,14 @@
     <div class='listMain'>
       <div class="listHeader">{{$store.state.listType}}</div>
       <el-card class='listCard'>
-        <div v-if="$store.state.listType!='珞青报'" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
+        <div v-if="$store.state.listType!='珞青报'&&loadFinish" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
           <a :href="'/article/'+item.pID" target="_blank">
           <span style="font-weight:bold;">{{item.pTitle}}</span>
           <span style="float:right">{{item.pUpdateTime|normalizeTime}}</span>
           </a>
         </div>
 
-        <div v-if="$store.state.listType =='珞青报' " align="center">
+        <div v-if="$store.state.listType =='珞青报'&&loadFinish " align="center">
           <div>
             <el-row  type="flex" class="newspaperList row-bg" justify="space-around" >
               <el-col :span="5" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize+0, (currentPage - 1) * pageSize+4)" :key="item.title" >
@@ -94,6 +94,7 @@ export default {
     return{
       currentPage:1,
       pageSize:12,
+      loadFinish:false
       // listData:this.$store.state.listData,
       // total:this.$store.state.listData.length,
     }
@@ -104,11 +105,13 @@ export default {
   },
   watch:{
     '$store.state.listType':function(newFlag, oldFlag){
+       this.loadFinish=false
        console.log(newFlag,oldFlag);
        if (this.$route.query.type!=='search'){
         this.$axios.get("/api/php/getListPage.php?type="+newFlag).then((res)=>{
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
+            this.loadFinish=true
           }else{
             this.$message.error(res.data.message)
           }
@@ -119,6 +122,7 @@ export default {
         .then(res=>{
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
+            this.loadFinish=true
           }else{
             this.$message.error(res.data.message)
           }   
@@ -129,6 +133,7 @@ export default {
   },
   mounted() {
     console.log(this.$store.state.listType,'test');
+    this.loadFinish=false
     switch (this.$route.query.type) {
       case "news":
         this.$store.state.listType="新闻"
@@ -159,7 +164,8 @@ export default {
         .get("/api/php/getListPage.php?type="+this.$store.state.listType)
         .then((res)=>{
           if(res.data.status=='success'){
-          this.$store.state.listData=res.data.list
+            this.$store.state.listData=res.data.list
+            this.loadFinish=true
           }else{
             this.$message.error(res.data.message)
           }
@@ -170,6 +176,7 @@ export default {
         .then(res=>{
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
+            this.loadFinish=true
           }else{
             this.$message.error(res.data.message)
           }   
