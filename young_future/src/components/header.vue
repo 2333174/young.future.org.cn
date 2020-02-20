@@ -48,6 +48,11 @@ export default {
           {title:"珞青报标题二",imgsrc:"../static/img/lqb1.jpg",date:"2020-02-03" ,link:"123"},
           {title:"珞青报标题三",imgsrc:"../static/img/lqb1.jpg",date:"2020-02-04" ,link:"123"},
           {title:"珞青报标题四",imgsrc:"../static/img/lqb1.jpg",date:"2020-02-05" ,link:"123"},
+          {title:"珞青报标题一",imgsrc:"../static/img/lqb1.jpg",date:"2020-02-02" ,link:"123"},
+          {title:"珞青报标题二",imgsrc:"../static/img/lqb1.jpg",date:"2020-02-03" ,link:"123"},
+          {title:"珞青报标题三",imgsrc:"../static/img/lqb1.jpg",date:"2020-02-04" ,link:"123"},
+         
+          
           
                                    ]
         break;
