@@ -163,6 +163,8 @@ export default {
       this.$axios
         .get("/api/php/getListPage.php?type="+this.$store.state.listType)
         .then((res)=>{
+          console.log(res.data);
+          
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
             this.loadFinish=true

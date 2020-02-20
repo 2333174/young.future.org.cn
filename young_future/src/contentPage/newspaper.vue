@@ -104,6 +104,7 @@ export default {
           $("#flipbook").turn({
               width:this.width,
               height:this.height,
+              duration:1000,
               autoCenter: true,
               when: {
                 turning: function(event, page, pageObject) {

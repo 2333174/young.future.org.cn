@@ -110,7 +110,7 @@ export default {
               res=>{
                 console.log(res.data);
                 if (res.data.status=="success"||res.data.status=="Success"){
-                  this.$message.success("上传成功")
+                  this.$message.success("添加成功")
                   this.cantSubmit=true
                   setTimeout(()=> {
                     this.$router.push("/manager/user/manager")
