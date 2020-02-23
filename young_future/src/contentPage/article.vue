@@ -1,7 +1,7 @@
 <template>
   <div style="height:100vh;overflow:auto;">
     <homeheader/>
-    <div class="main">
+    <div class="main" v-loading='loading' element-loading-text="拼命加载中">
       <el-card class="articleTitle">
         <div class="title">
             {{this.article.pTitle}}
@@ -29,11 +29,13 @@ import footSection from '@/components/footSection.vue'
 export default {
   data() {
     return {
-      article:{}
+      article:{},
+      loading:false
     }
   },
   mounted() {
     console.log(this.$route.params.id);
+    this.loading=true;
     this.$axios
       .get("/api/php/getContent.php?type=article&key="+this.$route.params.id)
       .then((res)=>{
@@ -42,6 +44,7 @@ export default {
         const articleContent_el = document.getElementById('articleContent');
         articleContent_el.innerHTML = this.article.pContent;
         articleContent_el.innerHTML += "<link rel='stylesheet' href='/static/css/style.css'>"
+        this.loading=false
       })
   },
   components:{
