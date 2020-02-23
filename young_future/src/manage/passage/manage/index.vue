@@ -10,6 +10,7 @@
             border
             :data="passageList"
             style="width: 100%"
+            v-loading='loading || deleteloading'
             :cell-style="{'text-align':'center'}">
             <el-table-column label="文章" header-align="center">
                 <el-table-column type="index" label="#"  width="50" header-align="center"/>
@@ -41,7 +42,7 @@
                     <template slot-scope="scope">
                     <el-button
                     size="mini"
-                    @click="view(scope.row.pTitle)">浏览</el-button>
+                    @click="view(scope.row.pID)">浏览</el-button>
                     <el-button
                     size="mini"
                     type="danger"
@@ -61,11 +62,14 @@ export default {
     //数据绑定
     data() {
         return {
-            passageList:[]
+            passageList:[],
+            loading:false,
+            deleteloading:false
         }
     },
     mounted(){
         this.$store.state.pageTitle="管理文章"
+        this.loading=true
         this.$axios.get("/api/php/opPassage.php",
         {params:{
             'token':this.$cookies.get("token"),
@@ -73,6 +77,7 @@ export default {
             }}).then(
         res=>{
                 console.log(res.data);
+                this.loading=false;
                 if (res.data.status!=="success"){
                     this.$message.error(res.data.message || "未知错误")   
                 }else{
@@ -84,12 +89,12 @@ export default {
     //用axios请求数据
     methods: {
         //跳转到文章界面
-        view(title){
-
+        view(id){
+            this.$router.push('/article/'+id)
         },
         deletePaper(pID,index){
             console.log(pID);
-            
+            this.deleteloading=true
             this.$axios.get("/api/php/opPassage.php",
             {params:{
                 'token':this.$cookies.get("token"),
@@ -98,6 +103,7 @@ export default {
                 }}).then(
             res=>{
                     console.log(res.data);
+                    this.deleteloading=false
                     if (res.data.status!=="success"){
                         this.$message.error(res.data.message || "删除失败")   
                     }else{

@@ -1,7 +1,7 @@
 <template>
   <div style="height:100vh;overflow:auto;">
     <homeheader/>
-    <div class="main">
+    <div class="main" v-loading='loading' element-loading-text="拼命加载中">
        <el-image-viewer 
           v-if="showViewer" 
           :on-close="closeViewer" 
@@ -50,7 +50,8 @@ export default {
       showViewer:false,
       width:0,
       height:0,
-      newspaperInfo:{}
+      newspaperInfo:{},
+      loading:false,
     }
   },
   methods: {
@@ -85,7 +86,8 @@ export default {
       }
     }
   },
-  mounted() {   
+  mounted() {  
+    this.loading=true 
     this.$axios
       .get("/api/php/getContent.php?type=newspaper&key="+this.$route.params.title)
       .then((res)=>{
@@ -123,6 +125,7 @@ export default {
             this.height =this. width*(4678/6650)
             $('#flipbook').turn('size', this.width, this.height);
           };
+          this.loading=false
       })
   },
   components:{

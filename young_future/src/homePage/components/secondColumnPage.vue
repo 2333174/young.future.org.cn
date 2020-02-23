@@ -39,7 +39,7 @@
           <div class='columnCard'>
               <ul style="list-style: none" v-for="item in newsqList">
                 <li >
-                  <a :href="'/article/'+item.pID" target="_blank">
+                  <a @click="$router.push('/article/'+item.pID)" target="_blank">
                     <div class="listContain">
                       {{item.pTitle}}
                     </div>
@@ -63,7 +63,7 @@
               <div class='columnCard'>
                 <ul style="list-style: none" v-for="item in handPickedList">
                   <li>
-                    <a :href="'/article/'+item.pID" target="_blank">
+                    <a @click="$router.push('/article/'+item.pID)" target="_blank">
                       <div class="listContain">
                         {{item.pTitle}}
                       </div>
@@ -87,7 +87,7 @@
              <div class='columnCard'>
                <ul style="list-style: none" v-for="item in topicList">
                  <li>
-                   <a :href=" '/article/'+item.pID" target="_blank">
+                   <a @click="$router.push('/article/'+item.pID)" target="_blank">
                      <div class="listContain">
                        {{item.pTitle}}
                      </div>

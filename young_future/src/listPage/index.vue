@@ -6,7 +6,7 @@
       <div class="listHeader">{{$store.state.listType}}</div>
       <el-card class='listCard'>
         <div v-if="$store.state.listType!='珞青报'&&loadFinish" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
-          <a :href="'/article/'+item.pID" target="_blank">
+          <a @click="$router.push('/article/'+item.pID)" target="_blank">
           <span style="font-weight:bold;">{{item.pTitle}}</span>
           <span style="float:right">{{item.pUpdateTime|normalizeTime}}</span>
           </a>

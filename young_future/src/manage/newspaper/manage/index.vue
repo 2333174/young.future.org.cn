@@ -10,7 +10,9 @@
             border
             :data="newspaperList"
             style="width: 100%"
-            :cell-style="{'text-align':'center'}">
+            :cell-style="{'text-align':'center'}"
+            v-loading="loading || deleteloading"
+            >
             <el-table-column label="珞青报" header-align="center">
                 <el-table-column type="index" label="#"  width="50" header-align="center"/>
                 <el-table-column
@@ -53,11 +55,14 @@ export default {
     //数据绑定
     data() {
         return {
-            newspaperList:[]
+            newspaperList:[],
+            loading:false,
+            deleteloading:false
         }
     },
     mounted(){
         this.$store.state.pageTitle="管理珞青报"
+        this.loading=true,
         this.$axios.get("/api/php/opNewsPaper.php",
         {params:{
             'token':this.$cookies.get("token"),
@@ -65,6 +70,7 @@ export default {
             }}).then(
         res=>{
                 console.log(res.data);
+                this.loading=false;
                 if (res.data.status!=="success"){
                     this.$message.error(res.data.message || "未知错误")   
                 }else{
@@ -77,11 +83,11 @@ export default {
     methods: {
         //跳转到文章界面
         view(title){
-
+            this.$router.push('/newspaper/'+title)
         },
         deletePaper(title,index){
             console.log(title);
-            
+            this.deleteloading=true
             this.$axios.get("/api/php/opNewsPaper.php",
             {params:{
                 'token':this.$cookies.get("token"),
@@ -90,6 +96,7 @@ export default {
                 }}).then(
             res=>{
                     console.log(res.data);
+                    this.deleteloading=false
                     if (res.data.status!=="success"){
                         this.$message.error(res.data.message || "删除失败")   
                     }else{

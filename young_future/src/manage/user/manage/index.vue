@@ -11,6 +11,7 @@
             border
             :data="userList"
             style="width: 100%"
+            v-loading='loading || deleteloading'
             :cell-style="{'text-align':'center'}">
             <el-table-column label="用户管理" header-align="center">
                 <el-table-column type="index" label="#"  width="50" header-align="center"/>
@@ -47,17 +48,22 @@ export default {
     //数据绑定
     data() {
         return {
-            userList:[]
+            userList:[],
+            loading:false,
+            deleteloading:false,
         }
     },
     mounted(){
         this.$store.state.pageTitle="管理用户"
+        this.loading=true;
         this.$axios.get("/api/php/opUser.php",
         {params:{
             'token':this.$cookies.get("token"),
             'type':'get'
-            }}).then(
-        res=>{
+            }}).then(res=>{                
+                if (res.status===200){
+                    this.loading=false
+                }
                 console.log(res.data);
                 if (res.data.status!=="success"){
                     this.$message.error(res.data.message || "未知错误")   
@@ -72,7 +78,7 @@ export default {
     methods: {
         deleteUser(uID,index){
             console.log(uID);
-            
+            this.deleteloading=true
             this.$axios.get("/api/php/opUser.php",
             {params:{
                 'token':this.$cookies.get("token"),
@@ -81,6 +87,7 @@ export default {
                 }}).then(
             res=>{
                     console.log(res.data);
+                    this.deleteloading=false
                     if (res.data.status!=="success"){
                         this.$message.error(res.data.message || "删除失败")   
                     }else{
