@@ -39,6 +39,7 @@ export default {
     this.$axios.get('/api/php/getHomeList.php').then(res=>{
       console.log(res.data);
       this.newsList=res.data.list.newsList
+      this.newsList[0].isScroll=true
       this.artList=res.data.list.artList
       this.LQBList=res.data.list.LQBList
       this.newsqList=res.data.list.newsqList

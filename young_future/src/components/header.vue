@@ -284,6 +284,9 @@ export default {
       vertical-align: middle;
     }
   }
+  #navbarSupportedContent{
+    background-color: #f8f9fa
+  }
   span {
     cursor: pointer;
     position: relative;

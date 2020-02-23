@@ -7,8 +7,8 @@
             <span class="news-header">珞&nbsp;&nbsp;青&nbsp;&nbsp;报</span>
           </div>  
         </el-header>
-        <el-row type="flex" justify="center" :gutter="80" style="margin:15px 0px auto">
-          <el-col :span="5" v-for="item in LQBList" :key="item.title" >
+        <el-row class="newspaperRow" justify="center" :gutter="50">
+          <el-col class="newspaperCol" v-for="item in LQBList" :key="item.title" >
             <div >
               <el-card :body-style="{ padding: '0px' }">
                 <div >
@@ -27,8 +27,8 @@
      </el-container> 
     </div>
     <div class="muti_column" v-waypoint="{ active: true, callback: onWaypoint_muti, options: intersectionOptions }">
-      <el-row class="el-row">
-        <el-col :span="8" align="center">
+      <el-row :gutter="6" style="margin:15px 10px auto">
+        <el-col class="mutiCol" align="center">
           <el-card class="el-card1" shadow="hover">
             <div slot="header">
               <span>最新速递</span>
@@ -36,23 +36,19 @@
                 更多
               </el-button>
             </div>
-          <div class='columnCard'>
-              <ul style="list-style: none" v-for="item in newsqList">
-                <li >
-                  <a @click="$router.push('/article/'+item.pID)" target="_blank">
-                    <div class="listContain">
-                      {{item.pTitle}}
-                    </div>
-                    <div class="listDate">
-                      {{item.pUpdateTime|normalizeTime}}
-                    </div>
-                  </a>
-                </li>
-              </ul>
+          <div class='columnCard' v-for="item in newsqList">
+            <span class="infospan" @click="$router.push('/article/'+item.pID)">
+              <div class="listContain">
+                {{item.pTitle}}
+              </div>
+              <div class="listDate">
+                {{item.pUpdateTime|normalizeTime}}
+              </div>
+            </span>
           </div>
           </el-card>
         </el-col>
-          <el-col :span="8" align="center">
+          <el-col class="mutiCol" align="center">
             <el-card class="el-card2" shadow="hover">
               <div slot="header" :header-row-style="{height:'100px'}">
                 <span>往期精彩</span>
@@ -60,23 +56,19 @@
                   更多
                 </el-button>
               </div>
-              <div class='columnCard'>
-                <ul style="list-style: none" v-for="item in handPickedList">
-                  <li>
-                    <a @click="$router.push('/article/'+item.pID)" target="_blank">
-                      <div class="listContain">
-                        {{item.pTitle}}
-                      </div>
-                      <div class="listDate">
-                        {{item.pUpdateTime|normalizeTime}}
-                      </div>
-                    </a>
-                  </li>
-                </ul>
+              <div class='columnCard' v-for="item in handPickedList">
+                <span class="infospan" @click="$router.push('/article/'+item.pID)" >
+                  <div class="listContain">
+                    {{item.pTitle}}
+                  </div>
+                  <div class="listDate">
+                    {{item.pUpdateTime|normalizeTime}}
+                  </div>
+                </span>
               </div>
             </el-card>
           </el-col>
-        <el-col :span="8" align="center">
+        <el-col class="mutiCol" align="center">
            <el-card class="el-card3" shadow="hover">
           <div slot="header">
             <span>专题</span>
@@ -84,20 +76,16 @@
               更多
             </el-button>
           </div>
-             <div class='columnCard'>
-               <ul style="list-style: none" v-for="item in topicList">
-                 <li>
-                   <a @click="$router.push('/article/'+item.pID)" target="_blank">
-                     <div class="listContain">
-                       {{item.pTitle}}
-                     </div>
-                     <div class="listDate">
-                       {{item.pUpdateTime|normalizeTime}}
-                     </div>
-                   </a>
-                 </li>
-               </ul>
-             </div>
+          <div class='columnCard' v-for="item in topicList">
+              <span class="infospan" @click="$router.push('/article/'+item.pID)">
+                <div class="listContain">
+                  {{item.pTitle}}
+                </div>
+                <div class="listDate">
+                  {{item.pUpdateTime|normalizeTime}}
+                </div>
+              </span>
+          </div>
         </el-card>
         </el-col>
       </el-row>
@@ -158,11 +146,9 @@ export default {
   background-color: white;
 }
 .muti_column{
-  height: 464px; 
+  min-height: 464px; 
   background-color: #e1e5e7;
   padding-top: 50px;
-  padding-left: 125px;
-  padding-right: 125px;
   .el-card1 {
     background-image: url("/static/img/image/bac1.jpg");
     width: 98%;
@@ -180,12 +166,12 @@ export default {
   }
   .el-card__body {
     padding-left: 0px;
-    padding-top: 30px;
-    padding-bottom: 200px;
+    padding-top: 10px;
+    height:200px;
   }
   .listContain{
-    width: 270px;
-    height: 30px;
+    width: 60%;
+    line-height: 20px;
     padding: 5px;
     text-align: left;
     float: left;
@@ -193,7 +179,7 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space:nowrap;
-    margin-left: 0px;
+    margin-left: 5px;
   }
   .listDate{
     float: right;
@@ -209,18 +195,19 @@ export default {
   float: right;
   color: cadetblue;
 }
-a{
+.infospan{
+  cursor: pointer;
   font-size: 17px;
   color: black;
 }
 a:link{
   text-decoration:none;
 }
-a:hover{
+.infospan:hover{
   color:steelblue;
 }
 .newspaper_column{
-  height: 464px;
+  min-height: 464px;
   padding-top: 20px;
 }
 .news-header{
@@ -230,4 +217,32 @@ a:hover{
   padding: 0 10px;
   border: 2px solid rgb(101,101,101);
   }
+@media (min-width: 700px) {
+  .newspaperRow{
+    margin:15px 20px 10px !important;
+  }
+  .newspaperCol{
+    width:25%;
+    margin-bottom:30px;
+  }
+  .mutiCol{
+    width:33%
+  }
+}
+@media (max-width: 700px) {
+  .newspaperRow{
+    margin:15px 0px 10px !important;
+  }
+  .newspaperCol{
+    width:50%;
+    margin-bottom:20px;
+  }
+  .mutiCol{
+    width:100%;
+    margin-bottom: 20px;
+    .el-card1,.el-card2,.el-card3{
+      background-image: none
+    }
+  }
+}
 </style>

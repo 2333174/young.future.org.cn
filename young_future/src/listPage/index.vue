@@ -8,7 +8,7 @@
         class='listCard' 
         v-loading='loading' 
         element-loading-text="加载中"
-        element-loading-background="rgba(134, 150, 167, 0.6">
+        element-loading-background="rgba(134, 150, 167, 0.6)">
         <div v-if="$store.state.listType!='珞青报'&&loadFinish" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
           <a @click="$router.push('/article/'+item.pID)" target="_blank">
           <span style="font-weight:bold;">{{item.pTitle}}</span>
