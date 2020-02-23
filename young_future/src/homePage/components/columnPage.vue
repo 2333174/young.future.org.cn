@@ -8,7 +8,7 @@
       <div class="news_block">
         <el-carousel @change="newsChange">
           <el-carousel-item v-for="item in newsList" :key="item.pID">
-            <img :src="'/api/passage/'+item.pID+'.jpg'" style="width:100%"/>
+            <el-image fit='cover' :src="'/api/passage/'+item.pID+'.jpg'"/>
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -46,12 +46,7 @@
         </el-card>
       </div>
       <div class="art_block">
-          <img src="/static/img/cover_future.png" style="width:100%"/>
-          <!-- <el-carousel @change="newsChange">
-            <el-carousel-item v-for="item in newsList" :key="item.title">
-              <img :src="item.imgUrl" style="width:100%"/>
-            </el-carousel-item>
-          </el-carousel> -->
+          <el-image fit='cover' src="/static/img/cover_future.png" style="width:100%"/>
       </div>
     </div>
   </section>
@@ -117,7 +112,7 @@ export default {
 .column-first{
   background-attachment: local;
   background-color: white;
-  height: 140vh;
+  height: auto;
 }
 .cardHeader{
   font-size: 18px;
@@ -125,8 +120,8 @@ export default {
 }
 .cardHeader:before,
 .cardHeader:after{
-    display: table;
-    content: "";
+  display: table;
+  content: "";
 }
 .cardHeader:after {
   clear: both;
@@ -137,8 +132,8 @@ export default {
   background-color: white;
   display: block;
   padding-top: 10px;
-  height: 50%;
-   .news-header{
+  height: 464px;
+  .news-header{
     font-size: 20px;
     font-weight: bold;
     font-family: SJ;
@@ -151,17 +146,24 @@ export default {
     margin-top: 30px;
     justify-content: center;
     .news_block{
+      height: 300px;
       display: flex;
       width: 40%;
       margin-right:40px;
       .el-carousel{
         width: 100%;
+        height: 300px;
+        .el-image{
+          width:100%;
+          height:300px
+        }
       }
     }
     .news-card{
       text-align: left;
       display: flex;
       width: 40%;
+      height: 300px;
       .el-card{
         width:100%;
         display:block;
@@ -183,7 +185,7 @@ export default {
 }
 .art-Column{
   background-attachment: local;
-  height: 50%;
+  height: 464px;
   display: block;
   background-color: #e1e5e7;
   padding-top: 20px;
@@ -203,6 +205,7 @@ export default {
     .art_block{
       display: flex;
       width: 40%;
+      height: 300px;
       margin-left:40px;
       img{
         box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
@@ -213,6 +216,7 @@ export default {
       text-align: left;
       display: flex;
       width: 40%;
+      height: 300px;
       .el-card{
         width:100%;
         display:block;

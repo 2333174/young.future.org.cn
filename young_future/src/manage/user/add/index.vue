@@ -29,7 +29,7 @@
               <el-input type="password" v-model="userform.confirmPassword" placeholder="请再输入一次密码"></el-input>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" class="useradd__submit" @click="submitForm('userform')" :disabled="cantSubmit">提交</el-button>
+              <el-button type="primary" class="useradd__submit" @click="submitForm('userform')" :loading="submitLoad" :disabled="cantSubmit">提交</el-button>
               <el-button @click="resetForm('userform')">重置</el-button>
              </el-form-item>
         </el-form>
@@ -59,6 +59,7 @@ export default {
           callback();
         }};
         return {
+            submitLoad:false,
             cantSubmit:false,
             userform:{
                 uAccount:'',
@@ -98,7 +99,7 @@ export default {
         submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-
+            this.submitLoad=true
             let params = new URLSearchParams();
             params.append('token',this.$cookies.get("token"));
             params.append('uAccount',this.userform.uAccount);
@@ -109,6 +110,7 @@ export default {
             this.$axios.post("/api/php/uploadUser.php",params).then(
               res=>{
                 console.log(res.data);
+                this.submitLoad=false
                 if (res.data.status=="success"||res.data.status=="Success"){
                   this.$message.success("添加成功")
                   this.cantSubmit=true

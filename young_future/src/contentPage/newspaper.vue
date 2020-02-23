@@ -22,6 +22,9 @@
           <div id="flipbook"> 
               <el-image class="newsImage" v-for="item in newspaperImg" @dblclick="previewPicture(item)" :key='item'
                 :src="item">
+                <div slot="placeholder" class="image-slot">
+                  加载中<span class="dot">...</span>
+                </div>
               </el-image>
               <!-- <div> Page 2 </div>
               <div> Page 3 </div>
@@ -124,9 +127,13 @@ export default {
             this.width = document.getElementById('newspaperCard').offsetWidth-40;
             this.height =this. width*(4678/6650)
             $('#flipbook').turn('size', this.width, this.height);
+            this.$store.state.bodyWidth=document.body.clientWidth
           };
           this.loading=false
       })
+  },
+  destroyed(){
+    window.onresize=null;
   },
   components:{
       homeheader,

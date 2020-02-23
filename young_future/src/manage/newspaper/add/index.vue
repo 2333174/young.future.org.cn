@@ -110,7 +110,7 @@
   </el-table>
   <div v-if="this.$store.state.newspaper_active==1" style="margin:20px auto 5px">
     <el-button type="primary" @click="before('newsForm')">上一步</el-button>
-    <el-button @click="submit('newsForm')" type="success" :disabled="cantSubmit">提交</el-button>
+    <el-button @click="submit('newsForm')" type="success" :loading="submitLoad" :disabled="cantSubmit">提交</el-button>
   </div>
   </el-card>
 </div>
@@ -131,6 +131,7 @@ export default {
         isHidden1:false,
         isHidden2:false,
         cantSubmit:false,
+        submitLoad:false,
         newsForm: {
           name: '',
           coverNum: '',
@@ -233,6 +234,7 @@ export default {
        -提交表单
       */
       submit(formName){
+        this.submitLoad=true
         let formData= new FormData();
         //封面base信息
         let cover=this.newsForm.coverList[0].raw;
@@ -253,6 +255,7 @@ export default {
         formData.append('pdfFile', pdfFile);                  //报刊原件
         this.$axios.post("/api/php/uploadNewsPaper.php",formData,{headers:{'Content-Type': 'multipart/form-data'}}).then(
                 res=>{
+                    this.submitLoad=false
                     console.log(res.data);
                     if (res.data.status=="success"){
                         this.$message.success("上传成功")
@@ -266,6 +269,7 @@ export default {
                 }
             );
       },
+      //变更封面
       handleCoverRemove(file,fileList){
         this.newsForm.coverList=fileList
         console.log(this.newsForm.coverList);
@@ -290,6 +294,7 @@ export default {
           this.isHidden1=true
         }
       },
+      //变更珞青报文件
       handleNewsRemove(file,fileList){
         this.newsForm.newsFileList=fileList
         console.log(this.newsForm.coverList);

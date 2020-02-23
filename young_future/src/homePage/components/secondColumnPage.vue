@@ -54,7 +54,7 @@
         </el-col>
           <el-col :span="8" align="center">
             <el-card class="el-card2" shadow="hover">
-              <div slot="header" class="card-header" :header-row-style="{height:'100px'}">
+              <div slot="header" :header-row-style="{height:'100px'}">
                 <span>往期精彩</span>
                 <el-button class="buttonMore" type="text" @click="$router.push({path:'/listpage',query:{type:'handpicked'}});$store.state.listType='往期精选'">
                   更多
@@ -78,7 +78,7 @@
           </el-col>
         <el-col :span="8" align="center">
            <el-card class="el-card3" shadow="hover">
-          <div slot="header" class="card-header">
+          <div slot="header">
             <span>专题</span>
             <el-button class="buttonMore" type="text" @click="$router.push({path:'/listpage',query:{type:'topic'}});$store.state.listType='专题'">
               更多
@@ -154,11 +154,11 @@ export default {
 <style lang="less">
 .column_second{
   background-attachment: local;
-  height: 140vh;
+  height: auto;
   background-color: white;
 }
 .muti_column{
-  height: 50%; 
+  height: 464px; 
   background-color: #e1e5e7;
   padding-top: 50px;
   padding-left: 125px;
@@ -220,7 +220,7 @@ a:hover{
   color:steelblue;
 }
 .newspaper_column{
-  height: 50%;
+  height: 464px;
   padding-top: 20px;
 }
 .news-header{

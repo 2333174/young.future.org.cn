@@ -4,7 +4,11 @@
     <homeheader/>
     <div class='listMain'>
       <div class="listHeader">{{$store.state.listType}}</div>
-      <el-card class='listCard'>
+      <el-card 
+        class='listCard' 
+        v-loading='loading' 
+        element-loading-text="加载中"
+        element-loading-background="rgba(134, 150, 167, 0.6">
         <div v-if="$store.state.listType!='珞青报'&&loadFinish" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize ,currentPage * pageSize < $store.state.listData.length?currentPage * pageSize:$store.state.listData.length)"  class="item">
           <a @click="$router.push('/article/'+item.pID)" target="_blank">
           <span style="font-weight:bold;">{{item.pTitle}}</span>
@@ -13,54 +17,20 @@
         </div>
 
         <div v-if="$store.state.listType =='珞青报'&&loadFinish " align="center">
-          <div>
-            <el-row  type="flex" class="newspaperList row-bg" justify="space-around" >
-              <el-col :span="5" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize+0, (currentPage - 1) * pageSize+4)" :key="item.title" >
-                <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
-                  <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image">
-                  <div style="padding: 0px;">
-                    <div class="bottom clearfix" style="padding-bottom: 10px;">
-                      <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
-                      <div class="text">{{item.title}}</div>
-                      <div class="time">{{item.uploadTime}}</div>         
-                    </div>
+          <el-row class="newspaperList">
+            <el-col  v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize, (currentPage - 1) * pageSize+12)" :key="item.title" >
+              <el-card :body-style="{ padding: '0px' }" style="margin:0px 0px 37px 0px" >
+                <el-image :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image"/>
+                <div style="padding: 0px;">
+                  <div class="bottom clearfix" style="padding-bottom: 10px;">
+                    <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
+                    <div class="text">{{item.title}}</div>
+                    <div class="time">{{item.uploadTime | normalizeTime}}</div>         
                   </div>
-                </el-card>
-              </el-col>
-            </el-row>
-          </div>
-          <div>
-            <el-row type="flex" class="newspaperList row-bg" justify="space-around" >
-              <el-col :span="5" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize+4, (currentPage - 1) * pageSize+8)" :key="item.title" >
-                <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
-                  <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image">
-                  <div style="padding: 0px;">
-                    <div class="bottom clearfix" style="padding-bottom: 10px;">
-                      <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
-                      <div class="text">{{item.title}}</div>
-                      <div class="time">{{item.uploadTime}}</div>       
-                    </div>
-                  </div>
-                </el-card>
-              </el-col>
-            </el-row>
-          </div>
-          <div>
-            <el-row type="flex" class="newspaperList row-bg" justify="space-around" >
-              <el-col :span="5" v-for="item in $store.state.listData.slice((currentPage - 1) * pageSize+8, (currentPage - 1) * pageSize+12)" :key="item.title" >
-                <el-card :body-style="{ padding: '3px' }" style="margin:0px 0px 37px 0px" >
-                  <img :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image">
-                  <div style="padding: 0px;">
-                    <div class="bottom clearfix" style="padding-bottom: 10px;">
-                      <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
-                      <div class="text">{{item.title}}</div>
-                      <div class="time">{{item.uploadTime}}</div>   
-                    </div>
-                  </div>
-                </el-card>
-              </el-col>
-            </el-row>
-          </div>
+                </div>
+              </el-card>
+            </el-col>
+          </el-row>
         </div>
 
         <div style="margin-top: 20px" class="pag">
@@ -94,7 +64,8 @@ export default {
     return{
       currentPage:1,
       pageSize:12,
-      loadFinish:false
+      loadFinish:false,
+      loading:false,
       // listData:this.$store.state.listData,
       // total:this.$store.state.listData.length,
     }
@@ -106,9 +77,11 @@ export default {
   watch:{
     '$store.state.listType':function(newFlag, oldFlag){
        this.loadFinish=false
+       this.loading=true
        console.log(newFlag,oldFlag);
        if (this.$route.query.type!=='search'){
         this.$axios.get("/api/php/getListPage.php?type="+newFlag).then((res)=>{
+          this.loading=false
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
             this.loadFinish=true
@@ -120,6 +93,7 @@ export default {
          this.$axios
         .get("/api/php/getListPage.php?type=search&keyword="+this.$route.query.keyword)
         .then(res=>{
+          this.loading=false
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
             this.loadFinish=true
@@ -134,6 +108,7 @@ export default {
   mounted() {
     console.log(this.$store.state.listType,'test');
     this.loadFinish=false
+    this.loading=true
     switch (this.$route.query.type) {
       case "news":
         this.$store.state.listType="新闻"
@@ -164,7 +139,7 @@ export default {
         .get("/api/php/getListPage.php?type="+this.$store.state.listType)
         .then((res)=>{
           console.log(res.data);
-          
+          this.loading=false
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
             this.loadFinish=true
@@ -176,6 +151,7 @@ export default {
       this.$axios
         .get("/api/php/getListPage.php?type=search&keyword="+this.$route.query.keyword)
         .then(res=>{
+          this.loading=false
           if(res.data.status=='success'){
             this.$store.state.listData=res.data.list
             this.loadFinish=true
@@ -241,11 +217,11 @@ export default {
   bottom: 20px;
   left:0;
   right: 0;
-  .el-pagination__total {
+  /deep/ .el-pagination__total {
     color:black;
     font-weight: bold;
   }
-  .el-pagination__jump {
+  /deep/ .el-pagination__jump {
     margin-left: 24px;
     font-weight: bold;
     color: black;
@@ -291,7 +267,6 @@ a:hover{
   }
 
   .button {
-    padding: 0;
     float: right;
     margin:0px 5px 0px 0px;
     
@@ -329,7 +304,10 @@ a:hover{
     }
   }
   .el-col {
+    width:25%;
     border-radius: 4px;
+    padding-right:20px;
+    padding-left:20px;
   }
   .row-bg {
     padding: 10px 0;

@@ -49,7 +49,7 @@
         </el-form-item>
         <div style="margin:20px auto 5px">
           <el-button v-on:click="Preview">预览</el-button>
-          <el-button @click="submit('passForm')" type="success">提交</el-button>
+          <el-button @click="submit('passForm')" :loading="submitLoad" type="success">提交</el-button>
         </div>
       </el-form>
     </el-card>
@@ -70,6 +70,7 @@
       return {
         dialogVisible: false,
         uploadVisible: false,
+        submitLoad:false,
         passForm: {
           title: '',
           author: '',
@@ -139,6 +140,7 @@
        * @param formName name of the form
        */
       submit: function(formName) {
+        this.submitLoad=true
         if (this.passForm.title === '' || this.passForm.author === '' ||this.passForm.category === ''
           || this.passForm.content == null || this.passForm.content === ''
           || (this.passForm.category === '新闻' && this.passForm.cover == null)) {
@@ -159,6 +161,7 @@
         // 通过axios上传
         this.$axios.post("/api/php/uploadPassage.php", formData).then(
           res=>{
+            this.submitLoad=false
             console.log(res.data);
             if (res.data.status === 'success') {
               this.$message.success("上传成功");
