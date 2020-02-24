@@ -11,9 +11,9 @@
             {{$route.params.title}} <i class="el-icon-download download" @click="download"/>
           </div>
           <div class="newspaperInfo">
-            <span class="info"><i class="el-icon-user"></i>发布者：{{this.newspaperInfo.uploadPerson}}</span>
-            <span class="info"><i class="el-icon-time"></i>发布时间：{{this.newspaperInfo.uploadTime}}</span>
-            <span class="info"><i class="el-icon-view"></i>浏览量：{{this.newspaperInfo.viewTimes}}</span>
+            <span class="info"><i class="el-icon-user"></i>发布者：【{{this.newspaperInfo.uploadPerson}}】</span>
+            <span class="info"><i class="el-icon-time"></i>发布时间：【{{this.newspaperInfo.uploadTime}}】</span>
+            <span class="info"><i class="el-icon-view"></i>浏览量：【{{this.newspaperInfo.viewTimes}}】</span>
           </div>
         </el-card>
         <el-card id='newspaperCard'>
@@ -70,7 +70,7 @@ export default {
     },
     paperBack(){
       $("#flipbook").turn("previous");
-      if ($("#flipbook").turn("page")==1){
+      if ($("#flipbook").turn("page")==1&&(this.$store.state.bodyWidth>700)){
         $('.leftArrow').css('left','10%');
         $('.rightArrow').css('right','10%');
       }else{
@@ -80,7 +80,7 @@ export default {
     },
     paperGo(){
       $("#flipbook").turn("next");
-      if ($("#flipbook").turn("page")==this.newspaperImg.length){
+      if ($("#flipbook").turn("page")==this.newspaperImg.length&&(this.$store.state.bodyWidth>700)){
         $('.leftArrow').css('left','10%');
         $('.rightArrow').css('right','10%');
       }else{
@@ -89,7 +89,8 @@ export default {
       }
     }
   },
-  mounted() {  
+  mounted() {
+    this.$store.state.bodyWidth= document.body.clientWidth 
     this.loading=true 
     this.$axios
       .get("/api/php/getContent.php?type=newspaper&key="+this.$route.params.title)
@@ -103,17 +104,24 @@ export default {
           this.$message.error('获取珞青报失败')
         }
       }).then(()=>{
-        this.width=document.getElementById('newspaperCard').offsetWidth-40
-          this.height=this.width*(4678/6650)
+          let duration=1000 
+          if(document.body.clientWidth<700){
+            this.width=document.getElementById('newspaperCard').offsetWidth-20
+            this.height=this.width*(4678/3325)
+            duration/=2 
+          }else{
+            this.width=document.getElementById('newspaperCard').offsetWidth-40
+            this.height=this.width*(4678/6650)
+          }
           let self=this
           $("#flipbook").turn({
               width:this.width,
               height:this.height,
-              duration:1000,
+              duration:duration,
               autoCenter: true,
               when: {
                 turning: function(event, page, pageObject) {
-                  if (page==1 || page==self.newspaperImg.length){
+                  if ((page==1 || page==self.newspaperImg.length)&&(document.body.clientWidth>700)){
                     $('.leftArrow').css('left','10%');
                     $('.rightArrow').css('right','10%');
                   }else{
@@ -123,17 +131,28 @@ export default {
                 }
               }
           });
-          window.onresize = ()=>{
-            this.width = document.getElementById('newspaperCard').offsetWidth-40;
-            this.height =this. width*(4678/6650)
-            $('#flipbook').turn('size', this.width, this.height);
+          if(document.body.clientWidth<700){
+            $('#flipbook').turn('display','single')
+          }
+          window.onresize=()=>{
             this.$store.state.bodyWidth=document.body.clientWidth
-          };
+            if(document.body.clientWidth<700){
+              $('#flipbook').turn('display','single')
+              this.width = document.getElementById('newspaperCard').offsetWidth-20;
+                this.height =this. width*(4678/3325)
+                $('#flipbook').turn('size', this.width, this.height);
+            }else{
+              $('#flipbook').turn('display','double')
+              this.width = document.getElementById('newspaperCard').offsetWidth-40;
+              this.height =this. width*(4678/6650)
+              $('#flipbook').turn('size', this.width, this.height);
+            }
+          }
           this.loading=false
       })
   },
   destroyed(){
-    window.onresize=null;
+    window.onresize=null
   },
   components:{
       homeheader,
@@ -146,8 +165,8 @@ export default {
 <style lang="less" scoped>
 .main{
   background-color: #f1f1f1;
-  min-height: 80vh;
   padding: 20px;
+  min-height: 80vh;
   .titleCard{
     .title{
       font-size: 18px;
@@ -159,15 +178,6 @@ export default {
         color: #409eff;
       }
     }
-    .newspaperInfo{
-      font-size:15px;
-      margin-top:5px;
-      width: 100%; 
-      position: relative;
-      .info{
-        margin-right: 20px;
-      }
-    }
   }
   #newspaperCard{
     // display: flex;
@@ -176,9 +186,7 @@ export default {
     border: none;
     box-shadow:none;
     position: relative;
-    .el-card__body{
-      padding: 0;
-    }
+    
     #flipbook{
       z-index: 1;
     }
@@ -187,7 +195,6 @@ export default {
       position: absolute;
       cursor: pointer;
       font-size: 30px;
-      left:10%;
       top:50%
     }
     .rightArrow{
@@ -195,12 +202,55 @@ export default {
       position: absolute;
       cursor: pointer;
       font-size: 30px;
-      right:10%;
       top:50%
     }
     // #flipbook{
     //   margin: 0 auto;
     // }
+  }
+}
+@media (min-width: 700px) {
+  .newspaperInfo{
+    font-size:15px;
+    width: 100%; 
+    margin-top:8px;
+    position: relative;
+    .info{
+      margin-right: 20px;
+    }
+  }
+  .main{
+    padding: 20px;
+  }
+  .leftArrow{
+    left:10%;
+  }
+  .rightArrow{
+    right:10%;
+  }
+}
+@media (max-width: 700px) {
+  #newspaperCard{
+    /deep/ .el-card__body{
+      padding:20px 10px;
+    }
+  }
+  .newspaperInfo{
+    font-size:14px;
+    margin-top:8px;
+    width: 100%; 
+    .info{
+      margin-right: 5px;
+    }
+  }
+  .main{
+    padding: 10px;
+  }
+  .leftArrow{
+    left:0;
+  }
+  .rightArrow{
+    right:0;
   }
 }
 *::-webkit-scrollbar {

@@ -7,11 +7,11 @@
             {{this.article.pTitle}}
           </div>
           <div class="articleInfo">
-            <span class="info"><i class="el-icon-edit"></i>作者:{{this.article.pAuthor}}</span>
-            <span class="info"><i class="el-icon-user"></i>发布者：{{this.article.pPublisher}}</span>
-            <span class="info"><i class="el-icon-time"></i>发布时间：{{this.article.pUpdateTime}}</span>
-            <span class="info"><i class="el-icon-folder"></i>分类：{{this.article.pCategory}}</span>
-            <span class="info"><i class="el-icon-view"></i>浏览量：{{this.article.pViews}}</span>
+            <span class="info"><i class="el-icon-edit"></i>作者:【{{this.article.pAuthor}}】</span>
+            <span class="info"><i class="el-icon-user"></i>发布者：【{{this.article.pPublisher}}】</span>
+            <span class="info"><i class="el-icon-time"></i>发布时间：【{{this.article.pUpdateTime}}】</span>
+            <span class="info"><i class="el-icon-folder"></i>分类：【{{this.article.pCategory}}】</span>
+            <span class="info"><i class="el-icon-view"></i>浏览量：【{{this.article.pViews}}】</span>
           </div>
       </el-card>
       <el-card class="articleCard">
@@ -56,7 +56,6 @@ export default {
 
 <style lang="less" scoped>
 .main{
-  padding:10px 30px;
   background-color: #f1f1f1;
   min-height: 80vh;
 }
@@ -67,15 +66,7 @@ export default {
     font-size: 18px;
     font-weight: bold;
   }
-  .articleInfo{
-    font-size:15px;
-    margin-top:8px;
-    width: 100%; 
-    position: relative;
-    .info{
-      margin-right: 20px;
-    }
-  }
+  
 }
 .articleCard{
   margin-bottom:20px; 
@@ -103,5 +94,33 @@ export default {
 }
 .w-e-text p{
   margin: 20px;
+}
+@media (min-width: 700px) {
+  .articleInfo{
+    font-size:15px;
+    margin-top:8px;
+    width: 100%; 
+    position: relative;
+    .info{
+      margin-right: 20px;
+    }
+  }
+  .main{
+    padding:10px 30px;
+  }
+}
+@media (max-width: 700px) {
+  .articleInfo{
+    font-size:14px;
+    margin-top:8px;
+    width: 100%; 
+    position: relative;
+    .info{
+      margin-right: 5px;
+    }
+  }
+  .main{
+    padding: 10px;
+  }
 }
 </style>
