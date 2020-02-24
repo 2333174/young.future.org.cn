@@ -1,4 +1,5 @@
-<?php 
+<?php
+include 'sqlInfo.php'; 
 header('Content-Type:application/json; charset=utf-8');
 header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Methods:GET, POST,OPTIONS');
@@ -29,10 +30,10 @@ if ($strList[0]&&$strList[1]){
 }
 
 //连接mysql
-$hostName = "localhost:3306";
-$username = "root";
-$password = "root";
-$dbname = "young_future";
+$hostName = $sqlHost;
+$username = $sqlUser;
+$password = $sqlPassword;
+$dbname = $sqlDB;
 $content = mysqli_connect($hostName ,$username, $password, $dbname);
 mysqli_set_charset($content, 'utf-8');
 

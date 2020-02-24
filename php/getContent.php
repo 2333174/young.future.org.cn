@@ -1,12 +1,17 @@
 <?php
+include 'sqlInfo.php';
+global $hostName;
+global $username;
+global $password;
+global $dbname;
+$hostName = $sqlHost;
+$username = $sqlUser;
+$password = $sqlPassword;
+$dbname = $sqlDB;
 function getContent(){
-  $hostName = "localhost:3306";
-  $username = "root";
-  $password = "root";
-  $dbname = "young_future";
   $type=$_GET['type'];
   $key=$_GET['key'];
-  $conn = mysqli_connect($hostName,$username, $password, $dbname);
+  $conn = mysqli_connect($GLOBALS['hostName'],$GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
   if ($type=='article'){
 	$sqlstr="UPDATE passage SET pViews=Pviews+1 where pID='$key'";
 	$sqlstr1 =" SELECT * from passage where pID='$key'";

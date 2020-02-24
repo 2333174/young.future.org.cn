@@ -1,4 +1,9 @@
 <?php
+include 'sqlInfo.php';
+$hostName = $sqlHost;
+$username = $sqlUser;
+$password = $sqlPassword;
+$dbname = $sqlDB;
   header('Access-Control-Allow-Origin:*');
   header('Access-Control-Allow-Methods:GET, POST,OPTIONS');
   header("Access-Control-Allow-Headers:*");
@@ -7,10 +12,6 @@
   $pdf= $_FILES['pdfFile']; 
   $cover= $_FILES['cover'];
   $uploadPerson = $_POST['uploadPerson'];
-  $hostName = "localhost:3306";
-  $username = "root";
-  $password = "root";
-  $dbname = "young_future";
   $content = mysqli_connect($hostName ,$username, $password, $dbname);
   mysqli_set_charset($content, 'utf-8');
   if ($content) {

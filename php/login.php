@@ -1,6 +1,6 @@
 <?php
     // error_reporting(0);
-
+	include "sqlInfo.php";
     header('Content-Type:application/json; charset=utf-8');
     header('Access-Control-Allow-Origin:*');
     header('Access-Control-Allow-Methods:GET, POST,OPTIONS');
@@ -13,10 +13,10 @@
 
     $account = $_POST['username'];
     $pwd = $_POST['password'];
-    $hostName = "localhost:3306";
-    $username = "root";
-    $password = "root";
-    $dbname = "young_future";
+    $hostName = $sqlHost;
+    $username = $sqlUser;
+    $password = $sqlPassword;
+    $dbname = $sqlDB;
     $content = mysqli_connect($hostName ,$username, $password, $dbname);
     mysqli_set_charset($content, 'utf-8');
     if ($content) {

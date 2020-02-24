@@ -5,12 +5,17 @@
    *@description:管理珞青报
   */
   //获取珞青报信息列表
+  include 'sqlInfo.php';
+  global $hostName;
+  global $username;
+  global $password;
+  global $dbname;
+  $hostName = $sqlHost;
+  $username = $sqlUser;
+  $password = $sqlPassword;
+  $dbname = $sqlDB;
   function getList(){
-    $hostName = "localhost:3306";
-    $username = "root";
-    $password = "root";
-    $dbname = "young_future";
-    $content = mysqli_connect($hostName ,$username, $password, $dbname);
+    $content = mysqli_connect($GLOBALS['hostName'],$GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
     $list = array();
     mysqli_set_charset($content, 'utf-8');   
     if ($content) { 
@@ -56,11 +61,7 @@
     if  (!deldir("../newspaper/".$title)){
       return array('status'=>"fail",'message'=>'文件删除失败');
     }
-    $hostName = "localhost:3306";
-    $username = "root";
-    $password = "root";
-    $dbname = "young_future";
-    $content = mysqli_connect($hostName ,$username, $password, $dbname);
+    $content = mysqli_connect($GLOBALS['hostName'],$GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
     mysqli_set_charset($content, 'utf-8');   
     if ($content) { 
       $sqlStr = "DELETE FROM newspaper WHERE title='$title';";
@@ -92,11 +93,7 @@
     }
     
     //连接mysql
-    $hostName = "localhost:3306";
-    $username = "root";
-    $password = "root";
-    $dbname = "young_future";
-    $content = mysqli_connect($hostName ,$username, $password, $dbname);
+    $content = mysqli_connect($GLOBALS['hostName'],$GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
     mysqli_set_charset($content, 'utf-8');
     
     

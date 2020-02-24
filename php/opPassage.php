@@ -1,4 +1,13 @@
 <?php
+include 'sqlInfo.php';
+global $hostName;
+global $username;
+global $password;
+global $dbname;
+$hostName = $sqlHost;
+$username = $sqlUser;
+$password = $sqlPassword;
+$dbname = $sqlDB;
 	//删除新闻图片文件：
 	function deldir($dir) {
 		//删除当前文件夹：
@@ -16,11 +25,7 @@
 				die(array('status'=>"failed",'message'=>'删除失败'));
 			}
 		}
-		$hostName = "localhost:3306";
-        $username = "root";
-        $password = "root";
-        $dbname = "young_future";
-        $content = mysqli_connect($hostName ,$username, $password, $dbname);
+		$content = mysqli_connect($GLOBALS['hostName'],$GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
         mysqli_set_charset($content, 'utf-8');   
         if ($content) { 
           $sqlStr = "DELETE FROM passage WHERE pID='$pID';";
@@ -34,11 +39,7 @@
 
     //获取文章信息
     function getList(){
-        $hostName = "localhost:3306";
-        $username = "root";
-        $password = "root";
-        $dbname = "young_future";
-        $content = mysqli_connect($hostName ,$username, $password, $dbname);
+        $content = mysqli_connect($GLOBALS['hostName'],$GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']);
         $list = array();
         mysqli_set_charset($content, 'utf-8');   
         if ($content) { 
@@ -83,11 +84,8 @@
         }
         
         //连接mysql
-        $hostName = "localhost:3306";
-        $username = "root";
-        $password = "root";
-        $dbname = "young_future";
-        $content = mysqli_connect($hostName ,$username, $password, $dbname); //打开链接，现在$content相当于钥匙
+		//打开链接，现在$content相当于钥匙
+        $content = mysqli_connect($GLOBALS['hostName'],$GLOBALS['username'], $GLOBALS['password'], $GLOBALS['dbname']); 
         mysqli_set_charset($content, 'utf-8');//规定默认字符集
         
         
