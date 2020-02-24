@@ -39,6 +39,7 @@
                     <el-button
                     size="mini"
                     type="danger"
+                    :loading="deleteloading"
                     @click="deletePaper(scope.row.title,scope.$index)">
                     删除</el-button>
                     </template>

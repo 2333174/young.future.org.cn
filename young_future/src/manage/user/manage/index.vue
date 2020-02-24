@@ -32,6 +32,7 @@
                     <el-button
                     size="mini"
                     type="danger"
+                    :loading="deleteloading"
                     @click="deleteUser(scope.row.uID,scope.$index)">
                     删除</el-button>
                     </template>
