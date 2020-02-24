@@ -222,11 +222,11 @@ a:link{
     margin:15px 20px 10px !important;
   }
   .newspaperCol{
-    width:25%;
+    width:25% !important;
     margin-bottom:30px;
   }
   .mutiCol{
-    width:33%
+    width:33% !important;
   }
 }
 @media (max-width: 700px) {
@@ -234,7 +234,7 @@ a:link{
     margin:15px 0px 10px !important;
   }
   .newspaperCol{
-    width:50%;
+    width:50% !important;
     margin-bottom:20px;
   }
   .mutiCol{
