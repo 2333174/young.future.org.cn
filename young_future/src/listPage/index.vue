@@ -23,9 +23,9 @@
                 <el-image :src="'/api/newspaper/'+item.title+'/cover.jpg'" class="image"/>
                 <div style="padding: 0px;">
                   <div class="bottom clearfix" style="padding-bottom: 10px;">
-                    <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>
                     <div class="text">{{item.title}}</div>
-                    <div class="time">{{item.uploadTime | normalizeTime}}</div>         
+                    <div class="time">{{item.uploadTime | normalizeTime}}</div>   
+                    <el-button  class="button" size="mini" type="primary" @click="$router.push('/newspaper/'+item.title)" round>查看详情 ></el-button>      
                   </div>
                 </div>
               </el-card>
@@ -190,7 +190,6 @@ export default {
 
 }
 .listMain{
-  width:80%;
   margin: 40px auto 40px;
   .listCard{
     background-color: rgba(134, 150, 167, 0.6);
@@ -266,11 +265,6 @@ a:hover{
     line-height: 12px;
   }
 
-  .button {
-    float: right;
-    margin:0px 5px 0px 0px;
-    
-  }
 
   .image {
     width: 100%;
@@ -303,13 +297,41 @@ a:hover{
       margin-bottom: 0;
     }
   }
+  .row-bg {
+    padding: 10px 0;
+  }
+@media (min-width: 900px) {
+  .button {
+    margin:5px 5px 0px 0px;
+    
+  }
+}
+@media (max-width: 900px) {
+  .button {
+    margin:5px 5px 0px 0px;
+    
+  }
+}
+@media (min-width: 700px) {
+  .listMain{
+    width: 80%
+  }
   .el-col {
     width:25%;
     border-radius: 4px;
     padding-right:20px;
     padding-left:20px;
   }
-  .row-bg {
-    padding: 10px 0;
+}
+@media (max-width: 700px) {
+  .listMain{
+    width: 95%
   }
+  .el-col {
+    width:50%;
+    border-radius: 4px;
+    padding-right:20px;
+    padding-left:20px;
+  }
+}
 </style>
